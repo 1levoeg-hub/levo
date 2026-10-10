@@ -2748,8 +2748,6 @@ function initNfc() {
   const originalCaption = caption.innerHTML;
   const joinButton = $('#nfcJoinBtn');
   let joined = false;
-  let userInteracted = false;
-  let autoJoinTimer = 0;
   let captionTimer = 0;
 
   function join(announce = false) {
@@ -2775,28 +2773,8 @@ function initNfc() {
     caption.innerHTML = originalCaption;
   }
 
-  function interact(action) {
-    userInteracted = true;
-    window.clearTimeout(autoJoinTimer);
-    action();
-  }
-
-  joinButton.addEventListener('click', () => interact(() => join(true)));
-  $('#nfcResetBtn').addEventListener('click', () => interact(reset));
-
-  if (!prefersReduced && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          autoJoinTimer = window.setTimeout(() => {
-            if (!userInteracted) join(false);
-          }, 500);
-          io.disconnect();
-        }
-      });
-    }, { threshold: 0.45 });
-    io.observe(pair);
-  }
+  joinButton.addEventListener('click', () => join(true));
+  $('#nfcResetBtn').addEventListener('click', reset);
 }
 
 /* ----------------------------------------------------------------

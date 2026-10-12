@@ -618,8 +618,8 @@ ul{margin:0;padding:0;list-style:none}
 
 .nfc-stage{
   position:relative;display:flex;justify-content:center;align-items:center;
-  min-height:clamp(280px,44vw,380px);
   perspective:1200px;
+  padding:12px 0;
 }
 .nfc-pair{
   position:relative;display:flex;align-items:center;gap:0;direction:ltr;
@@ -668,7 +668,7 @@ ul{margin:0;padding:0;list-style:none}
 }
 .nfc-list p{font-size:15.5px;font-weight:600;color:var(--ink-soft);line-height:1.7}
 .nfc-list b{color:var(--ink)}
-.nfc-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.nfc-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:12px}
 .nfc-disclaimer{
   margin-top:22px;font-size:13px;font-weight:600;color:var(--ink-soft);
   background:rgba(255,255,255,.75);border:2px dashed var(--ink-soft);
@@ -1543,6 +1543,10 @@ ul{margin:0;padding:0;list-style:none}
           </div>
 
           <p class="nfc-caption show" id="nfcCaption">اتنين كارت... و<span class="hl">قلب واحد</span>.</p>
+          <div class="nfc-actions">
+            <button class="btn btn--purple" id="nfcJoinBtn" type="button" aria-pressed="false">كمّل القلب</button>
+            <button class="btn btn--ghost" id="nfcResetBtn" type="button">رجّعهم تاني</button>
+          </div>
         </div>
 
         <div class="nfc-copy" data-reveal style="--d:.12s">
@@ -1555,11 +1559,6 @@ ul{margin:0;padding:0;list-style:none}
             <li><span class="tick">✓</span><p><b>اسم مخصص</b> على كل كارت، والكارتين مع بعض بيكمّلوا <b>نصّين قلب واحد</b>.</p></li>
             <li><span class="tick">✓</span><p><b>QR على الظهر</b> كبديل لو الموبايل مش بيدعم NFC أو القارئ مش متاح.</p></li>
           </ul>
-
-          <div class="nfc-actions">
-            <button class="btn btn--purple" id="nfcJoinBtn" type="button" aria-pressed="false">كمّل القلب</button>
-            <button class="btn btn--ghost" id="nfcResetBtn" type="button">رجّعهم تاني</button>
-          </div>
 
           <p class="nfc-disclaimer">
             <b>مهم:</b> الكارتين بيفتحوا نفس التجربة الرقمية. الـ NFC بيقوم بدور «فتح اللينك» بس — مش وسيلة لحماية المحتوى.
@@ -1956,6 +1955,8 @@ const PORTFOLIO = [
   { title:'المهمة', type:'The Quest Demo', icon:'m-star', accent:'linear-gradient(150deg,#e8dcff,#dceaff)', desc:'مغامرة تفاعلية فيها أسئلة واختيارات عن ذكرياتكم ومواقفكم المشتركة؛ كل إجابة بتقرّبك من كشف ذكرى جديدة وفتح الرسالة النهائية.', url:'https://mosefnos-blip.github.io/frind/', preview:'./quest-homepage-preview.png', previewWidth:1250, previewHeight:938 },
   { title:'الملف السري', type:'World War Memories Demo', icon:'m-star', accent:'linear-gradient(150deg,#dceaff,#e8dcff)', desc:'موقع بطابع ملف من الحرب العالمية، مليان بذكريات وحكايات بتكشف تفاصيل حكايتكم واحدة واحدة.', url:'https://1levoeg-hub.github.io/World-War/', preview:'./World%20War.png', previewWidth:1070, previewHeight:701 },
   { title:'ملف مشفر', type:'Secret File Demo', icon:'m-star', accent:'linear-gradient(150deg,#e8dcff,#dceaff)', desc:'تجربة بطابع ملفات المخابرات، فيها بيانات سرية وتقارير مضحكة وتحليل للشخصية، وتنتهي بفتح رسالة شخصية مخفية.', url:'https://mosefnos-blip.github.io/youssef-suleiman-site/jox.html', preview:'./secret-file-preview.png', previewWidth:1250, previewHeight:950 },
+  { title:'فيلم رومانسي', type:'Romantic Movie Demo', icon:'m-star', accent:'linear-gradient(150deg,#ffe0ec,#ffd6e8)', desc:'تجربة بتحوّل حكايتكم لفيلم رومانسي، بتصميم مستوحى من بوسترات السينما ومشاهد وذكريات تخلي كل تفصيلة جزء من قصة حبكم.', url:'https://1levoeg-hub.github.io/levo-movie/', preview:'./movie.png', previewWidth:801, previewHeight:876 },
+  { title:'جواب', type:'Love Letter Demo', icon:'m-star', accent:'linear-gradient(150deg,#fff0c9,#ffe0ec)', desc:'جواب غرامي رقمي متصمم كأنه رسالة حب متكتبة بإيدك؛ افتح الظرف واكتشف كلام رومانسي ولمسات دافية تخلي كل كلمة قريبة للقلب.', url:'https://1levoeg-hub.github.io/letter/', preview:'./letter.png', previewWidth:1272, previewHeight:782 },
 ];
 
 const PACKAGES = [

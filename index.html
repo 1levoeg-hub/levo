@@ -20,7 +20,7 @@
 <meta name="twitter:title" content="Levo — مواقع صغيرة، لمشاعر كبيرة">
 <meta name="twitter:description" content="هدايا رقمية مخصصة لأي شخص غالي عليك، مع كروت NFC مطبوعة.">
 <meta name="twitter:image" content="./logo_levo.png">
-<link rel="icon" type="image/png" href="./logo_levo.png">
+<link rel="icon" type="image/png" href="./logo_levo1.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -371,7 +371,7 @@ ul{margin:0;padding:0;list-style:none}
    RECIPIENT CARDS
    ============================================================ */
 .whom-grid{
-  display:grid;gap:clamp(12px,1.6vw,18px);
+  display:grid;gap:10px;
   grid-template-columns:repeat(5,minmax(0,1fr));
 }
 @media (max-width:1000px){.whom-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -379,46 +379,44 @@ ul{margin:0;padding:0;list-style:none}
 @media (max-width:480px){.whom-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 .whom-card{
-  position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;
-  padding:20px 12px 16px;border-radius:var(--r);
-  border:var(--line-thick);background:#fff;
-  box-shadow:var(--sh-sm);
-  transition:transform .28s var(--bounce), box-shadow .28s var(--bounce), background .28s ease;
-  text-align:center;overflow:hidden;
+  position:relative;display:flex;align-items:center;gap:9px;
+  min-width:0;min-height:58px;padding:8px 10px;border-radius:16px;
+  border:var(--line);background:#fff;box-shadow:2px 2px 0 var(--ink);
+  transition:transform .2s var(--bounce), box-shadow .2s var(--bounce), background .2s ease;
+  text-align:start;overflow:hidden;
 }
 .whom-card::before{
-  content:'';position:absolute;inset:0;opacity:.5;z-index:0;
+  content:'';position:absolute;inset:0;opacity:.25;z-index:0;
   background:var(--accent,#ffd9ec);
   transition:opacity .3s ease;
 }
 .whom-card > *{position:relative;z-index:1}
 .whom-icon{
-  width:clamp(48px,7vw,62px);height:clamp(48px,7vw,62px);
-  border-radius:50%;border:var(--line);
-  background:#fff;display:grid;place-items:center;
-  box-shadow:3px 3px 0 var(--ink);
-  transition:transform .35s var(--bounce);
+  flex:0 0 32px;width:32px;height:32px;border-radius:11px;
+  border:1.5px solid var(--ink);background:#fff;
+  display:grid;place-items:center;transition:transform .25s var(--bounce);
 }
-.whom-icon svg{width:60%;height:60%}
-.whom-name{font-family:'Lalezar',cursive;font-size:clamp(15px,1.7vw,18px);line-height:1.2}
-.whom-en{font-size:11px;font-weight:700;color:var(--ink-soft);direction:ltr;opacity:.85}
+.whom-icon svg{width:72%;height:72%}
+.whom-copy{display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:0}
+.whom-name{font-family:'Lalezar',cursive;font-size:14px;line-height:1.2;white-space:nowrap}
+.whom-en{font-size:9px;font-weight:700;color:var(--ink-soft);direction:ltr;opacity:.85}
 .whom-card:hover,.whom-card:focus-visible{
-  transform:translate(-3px,-4px) rotate(-1.2deg);
-  box-shadow:8px 9px 0 var(--ink);
+  transform:translate(-1px,-2px);
+  box-shadow:3px 4px 0 var(--ink);
 }
-.whom-card:hover::before{opacity:1}
-.whom-card:hover .whom-icon{transform:translateY(-5px) rotate(-8deg) scale(1.06)}
-.whom-card:active{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--ink)}
+.whom-card:hover::before{opacity:.5}
+.whom-card:hover .whom-icon{transform:scale(1.06)}
+.whom-card:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
 .whom-card.selected{
   background:var(--yellow);
-  box-shadow:7px 7px 0 var(--ink);
-  transform:translate(-2px,-2px);
+  box-shadow:3px 3px 0 var(--ink);
+  transform:translate(-1px,-1px);
 }
 .whom-card.selected::after{
-  content:'✓';position:absolute;top:8px;inset-inline-start:8px;
-  width:24px;height:24px;border-radius:50%;
-  background:var(--green);border:2px solid var(--ink);
-  display:grid;place-items:center;font-size:13px;font-weight:800;color:var(--ink);
+  content:'✓';position:absolute;top:4px;left:4px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--green);border:1.5px solid var(--ink);
+  display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--ink);
   animation:popIn .35s var(--bounce) both;z-index:2;
 }
 @keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
@@ -1063,6 +1061,27 @@ ul{margin:0;padding:0;list-style:none}
   .btn--lg{font-size:20px;padding:17px 34px;min-height:60px}
   .hero-actions .btn{flex:1;min-width:140px}
   .nfc-card{width:min(43vw,230px)}
+  .feat{
+    display:grid;grid-template-columns:46px minmax(0,1fr);
+    grid-template-rows:auto auto;align-items:center;gap:4px 12px;
+    padding:14px;border-radius:18px;
+  }
+  .feat-visual{
+    grid-column:1;grid-row:1 / span 2;
+    width:46px;height:46px;border-radius:13px;
+  }
+  .feat-visual > svg{width:30px;height:30px}
+  .feat h3{grid-column:2;grid-row:1;font-size:18px;line-height:1.25}
+  .feat p{grid-column:2;grid-row:2;font-size:13px;line-height:1.55}
+  .mini-photos i{width:20px;height:26px;border-width:2px;border-radius:5px}
+  .mini-photos i:nth-child(1){transform:rotate(-12deg) translateX(-10px)}
+  .mini-photos i:nth-child(3){transform:rotate(12deg) translateX(10px)}
+  .mini-timeline i{width:12px;height:12px;border-width:2px}
+  .mini-timeline::before{height:3px}
+  .mini-wave{gap:3px}
+  .mini-wave b{width:4px;max-height:24px;border-width:1px}
+  .mini-quiz{gap:4px}
+  .mini-quiz i{height:9px;border-width:1.5px}
   .modal-body{padding:20px 16px 24px}
   .modal-head{padding:14px 16px}
 }
@@ -1328,7 +1347,7 @@ ul{margin:0;padding:0;list-style:none}
 <header class="site-header" id="siteHeader">
   <div class="header-inner">
     <a class="brand" href="#top" aria-label="Levo — الصفحة الرئيسية">
-      <img class="brand-logo" src="./logo_levo.png" width="110" height="55" alt="Levo — Small websites. Big feelings.">
+      <img class="brand-logo" src="./logo_levo1.png" width="110" height="55" alt="Levo — Small websites. Big feelings.">
     </a>
 
     <nav class="main-nav" id="mainNav" aria-label="التنقل الرئيسي">
@@ -1352,7 +1371,7 @@ ul{margin:0;padding:0;list-style:none}
 <div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-label="قائمة التنقل" aria-hidden="true">
   <div class="mobile-nav-panel" tabindex="-1">
     <div class="mobile-nav-head">
-      <img class="mobile-nav-logo" src="./logo_levo.png" width="132" height="66" alt="Levo — Small websites. Big feelings.">
+      <img class="mobile-nav-logo" src="./logo_levo1.png" width="132" height="66" alt="Levo — Small websites. Big feelings.">
       <button class="modal-close" id="menuClose" aria-label="إغلاق القائمة">✕</button>
     </div>
     <nav aria-label="التنقل في الموبايل">
@@ -1453,6 +1472,45 @@ ul{margin:0;padding:0;list-style:none}
   </section>
 
   <!-- ============================================================
+       NFC SHOWCASE
+       ============================================================ -->
+  <section class="section nfc-section" id="nfc" aria-labelledby="nfcTitle">
+    <div class="wrap">
+      <div class="nfc-grid">
+        <div class="nfc-visual" data-reveal>
+          <div class="nfc-stage">
+            <div class="nfc-pair" id="nfcPair">
+              <img class="nfc-card card-a" src="./youssef_card.png" width="164" height="138" alt="كارت NFC باسم Youssef" draggable="false">
+              <img class="nfc-card card-b" src="./Malak_card.png" width="184" height="138" alt="كارت NFC باسم Salma" draggable="false">
+            </div>
+          </div>
+
+          <p class="nfc-caption show" id="nfcCaption">اتنين كارت... و<span class="hl">قلب واحد</span>.</p>
+          <div class="nfc-actions">
+            <button class="btn btn--purple" id="nfcJoinBtn" type="button" aria-pressed="false">كمّل القلب</button>
+            <button class="btn btn--ghost" id="nfcResetBtn" type="button">رجّعهم تاني</button>
+          </div>
+        </div>
+
+        <div class="nfc-copy" data-reveal style="--d:.12s">
+          <span class="section-label">Levo NFC</span>
+          <h2 class="section-title" id="nfcTitle">كارتين صغيرين... <span class="hl">وحكاية واحدة</span>.</h2>
+          <p class="section-sub">هدية تقدر تمسكها في إيدك، ولما تقرّبها من موبايلك تفتح عالم معمول مخصوص ليك.</p>
+
+          <ul class="nfc-list">
+            <li>
+              <span class="tick">✓</span>
+              <p><b>كارت ذكي</b>، بمجرد لمسة على الهاتف، يفتح موقعكم وذكرياتكم.</p>
+            </li>
+            <li><span class="tick">✓</span><p><b>اسم مخصص</b> على كل كارت، والكارتين مع بعض بيكمّلوا <b>نصّين قلب واحد</b>.</p></li>
+            <li><span class="tick">✓</span><p><b>QR على الظهر</b> كبديل لو الموبايل مش بيدعم NFC أو القارئ مش متاح.</p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        FOR WHOM
        ============================================================ -->
   <section class="section" id="whom" aria-labelledby="whomTitle">
@@ -1497,10 +1555,7 @@ ul{margin:0;padding:0;list-style:none}
         <p class="section-sub">كل تجربة ليها روح مختلفة — من قلب واحد لقلب واحد.</p>
       </div>
 
-      <p class="work-note">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#i-info"/></svg>
-        المعروض هنا نماذج توضيحية (Demos) بتوضّح الشكل والأسلوب — مش مشاريع عملاء حقيقيين.
-      </p>
+
 
       <div class="work-rail" id="workRail" tabindex="0" aria-label="معرض الأمثلة — استخدم الأسهم للتنقل"></div>
 
@@ -1524,47 +1579,6 @@ ul{margin:0;padding:0;list-style:none}
 
       <div class="how-grid" id="howGrid">
         <div class="how-path" aria-hidden="true"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       NFC SHOWCASE
-       ============================================================ -->
-  <section class="section nfc-section" id="nfc" aria-labelledby="nfcTitle">
-    <div class="wrap">
-      <div class="nfc-grid">
-        <div class="nfc-visual" data-reveal>
-          <div class="nfc-stage">
-            <div class="nfc-pair" id="nfcPair">
-              <img class="nfc-card card-a" src="./Youssef_card.png" width="164" height="138" alt="كارت NFC باسم Youssef" draggable="false">
-              <img class="nfc-card card-b" src="./Salma_card.png" width="184" height="138" alt="كارت NFC باسم Salma" draggable="false">
-            </div>
-          </div>
-
-          <p class="nfc-caption show" id="nfcCaption">اتنين كارت... و<span class="hl">قلب واحد</span>.</p>
-          <div class="nfc-actions">
-            <button class="btn btn--purple" id="nfcJoinBtn" type="button" aria-pressed="false">كمّل القلب</button>
-            <button class="btn btn--ghost" id="nfcResetBtn" type="button">رجّعهم تاني</button>
-          </div>
-        </div>
-
-        <div class="nfc-copy" data-reveal style="--d:.12s">
-          <span class="section-label">Levo NFC</span>
-          <h2 class="section-title" id="nfcTitle">كارتين صغيرين... <span class="hl">وحكاية واحدة</span>.</h2>
-          <p class="section-sub">هدية تقدر تمسكها في إيدك، ولما تقرّبها من موبايلك تفتح عالم معمول مخصوص ليك.</p>
-
-          <ul class="nfc-list">
-            <li><span class="tick">✓</span><p><b>كارت مطبوع</b> بحجم كارت البنك، بس شكله كارت تذكاري — <b>من غير أي شريحة دفع</b>.</p></li>
-            <li><span class="tick">✓</span><p><b>اسم مخصص</b> على كل كارت، والكارتين مع بعض بيكمّلوا <b>نصّين قلب واحد</b>.</p></li>
-            <li><span class="tick">✓</span><p><b>QR على الظهر</b> كبديل لو الموبايل مش بيدعم NFC أو القارئ مش متاح.</p></li>
-          </ul>
-
-          <p class="nfc-disclaimer">
-            <b>مهم:</b> الكارتين بيفتحوا نفس التجربة الرقمية. الـ NFC بيقوم بدور «فتح اللينك» بس — مش وسيلة لحماية المحتوى.
-            وسلوك القارئ بيختلف من موبايل لموبايل، فبنختبره قبل التسليم وبنوفّر QR كخطة بديلة.
-          </p>
-        </div>
       </div>
     </div>
   </section>
@@ -1938,15 +1952,14 @@ const RECIPIENTS = [
 ];
 
 const FEATURES = [
-  { icon:'f-open',     accent:'#ffe4f1', title:'شاشة افتتاحية مخصصة', text:'أول حاجة يشوفها — باسمه، وبإحساس معمول مخصوص ليه.' },
+  { icon:'f-open',     accent:'#ffe4f1', title:'موقع مخصصة', text:'أول حاجة يشوفها — باسمه، وبإحساس معمول مخصوص ليه.' },
   { icon:'f-gallery',  accent:'#e4f0ff', title:'ألبوم صور',            text:'اجمع الصور واللحظات المهمة في مكان واحد مرتب.' },
   { icon:'f-letter',   accent:'#fff4d6', title:'رسالة مكتوبة',         text:'كلامك بصياغتك، بشكل حلو ومريح للقراءة.' },
   { icon:'f-voice',    accent:'#efe4ff', title:'رسالة صوتية',          text:'خلي صوتك يوصل زي ما بتحب تقوله بالظبط.' },
   { icon:'f-timeline', accent:'#e2f7f2', title:'خط زمني للذكريات',     text:'رتّب الحكاية من أولها لآخرها بشكل واضح.' },
   { icon:'f-date',     accent:'#ffe9ec', title:'تواريخ مهمة',          text:'اليوم اللي بدأ فيه كل حاجة، وأي تاريخ ليه معنى.' },
-  { icon:'f-quiz',     accent:'#e8ffe9', title:'أسئلة تفاعلية',        text:'لعبة صغيرة أو أسئلة بينكم — تخلّي التجربة ممتعة.' },
+  { icon:'f-quiz',     accent:'#e8ffe9', title:'أسئلة بنكوا',        text:'لعبة صغيرة أو أسئلة بينكم — تخلّي التجربة ممتعة.' },
   { icon:'f-surprise', accent:'#fff0d9', title:'مفاجأة مخفية',         text:'اختم الموقع بحاجة مكانش متوقعها.' },
-  { icon:'f-anim',     accent:'#e6f0ff', title:'رسومات متحركة',        text:'عناصر بتتحرك وتتفاعل وبتدي روح للتجربة.' },
   { icon:'f-secret',   accent:'#f0e6ff', title:'رسالة أخيرة سرية',     text:'كلمة تفضل محفوظة لحد ما يوصل لها بنفسه.' }
 ];
 
@@ -1964,7 +1977,7 @@ const PACKAGES = [
     id:'digital', en:'Levo Touch', ar:'لمسة Levo',
     icon:'p-1', accent:'#ffe4f1',
     desc:'هدية رقمية مميزة، معمولة مخصوص علشان تحوّل أجمل ذكرياتكم لمفاجأة متتنسيش. ✨',
-    feats:['شاشة افتتاحية بتصميم خاص','صور وذكريات مختارة','رسالة شخصية من اختيارك','تصميم متناسق مع المناسبة','تجربة رقمية مميزة باسم الشخص'],
+    feats:['موقع مخصص','صور وذكريات مختارة','رسالة شخصية من اختيارك','تصميم متناسق مع المناسبة','تجربة رقمية مميزة باسم الشخص'],
     tagline:'هدية بسيطة في شكلها، كبيرة في معناها.',
     price:499, priceLabel:'السعر يبدأ من', recommended:false
   },
@@ -2053,8 +2066,10 @@ function renderWhom() {
     <button class="whom-card" type="button" data-recipient="${r.id}"
             style="--accent:${r.accent}" aria-pressed="false">
       <span class="whom-icon"><svg viewBox="0 0 48 48"><use href="#${r.icon}"/></svg></span>
-      <span class="whom-name">${esc(r.ar)}</span>
-      <span class="whom-en">${esc(r.en)}</span>
+      <span class="whom-copy">
+        <span class="whom-name">${esc(r.ar)}</span>
+        <span class="whom-en">${esc(r.en)}</span>
+      </span>
     </button>
   `).join('');
 

@@ -701,6 +701,16 @@ ul{margin:0;padding:0;list-style:none}
   padding:22px 20px 18px;border-bottom:var(--line-thick);
   background:var(--accent,#ffe9f4);position:relative;
 }
+.pkg-top--preview{padding-inline-end:182px;min-height:220px}
+.pkg-preview{
+  position:absolute;inset-inline-end:18px;top:20px;
+  width:144px;height:180px;padding:5px;
+  border:var(--line-thick);border-radius:17px;background:#fff;
+  box-shadow:4px 5px 0 var(--ink);overflow:hidden;
+  transition:transform .3s var(--bounce);
+}
+.pkg-preview img{display:block;width:100%;height:100%;border-radius:9px;object-fit:contain;object-position:center}
+.pkg:hover .pkg-preview{transform:translateY(-2px)}
 .pkg-icon{
   width:56px;height:56px;border-radius:18px;
   border:var(--line);background:#fff;box-shadow:3px 3px 0 var(--ink);
@@ -1736,7 +1746,7 @@ ul{margin:0;padding:0;list-style:none}
 
     <div class="modal-body">
       <div class="steps-bar" aria-hidden="true">
-        <i class="active"></i><i></i><i></i><i></i>
+        <i class="active"></i><i></i><i></i>
       </div>
 
       <!-- STEP 1 -->
@@ -1761,6 +1771,7 @@ ul{margin:0;padding:0;list-style:none}
         <h3 tabindex="-1">اختار الباقة</h3>
         <p class="hint">تقدر تغيّر اختيارك في أي وقت قبل الإرسال.</p>
         <div class="chip-grid" id="mPackages" role="group" aria-label="اختيار الباقة"></div>
+        <p class="field-note" id="packageSummary" aria-live="polite">اختار الباقة عشان يظهر وصفها وسعرها.</p>
 
         <div class="field-row" style="margin-top:18px">
           <div class="field" id="fNameA">
@@ -1769,9 +1780,9 @@ ul{margin:0;padding:0;list-style:none}
             <span class="err" id="nameAError" data-err></span>
           </div>
           <div class="field" id="fNameB">
-            <label for="nameB">اسمك (اختياري)</label>
-            <input type="text" id="nameB" maxlength="100" autocomplete="given-name" placeholder="الاسم اللي هيظهر في الرسالة">
-            <span class="err" data-err></span>
+            <label for="nameB">اسمك <span class="req">*</span></label>
+            <input type="text" id="nameB" required maxlength="100" aria-describedby="nameBError" autocomplete="given-name" placeholder="الاسم اللي هيظهر في الرسالة">
+            <span class="err" id="nameBError" data-err></span>
           </div>
         </div>
 
@@ -1783,43 +1794,6 @@ ul{margin:0;padding:0;list-style:none}
 
       <!-- STEP 3 -->
       <div class="form-step" data-step="3">
-        <h3 tabindex="-1">تفاصيل الهدية</h3>
-        <p class="hint">قول لنا كل حاجة تحب تظهر في التجربة.</p>
-
-        <div class="field">
-          <label for="notesInput">حكايتك أو رسالتك</label>
-          <textarea id="notesInput" maxlength="4000" rows="5" placeholder="اكتب أي تفاصيل، أسماء، تواريخ، أو رسالة تحب تظهر في الهدية."></textarea>
-        </div>
-
-        <div class="field">
-          <label>عناصر تحب تظهر في الهدية</label>
-          <div class="chip-grid" id="mFeatures" role="group" aria-label="اختيار عناصر الهدية"></div>
-        </div>
-
-        <div class="field-row" style="margin-top:18px">
-          <div class="field">
-            <span class="field-label">كروت NFC ضمن الباقة</span>
-            <p id="cardsSummary" class="field-note" aria-live="polite">اختار الباقة عشان يظهر عدد الكروت المتضمن.</p>
-          </div>
-          <div class="field">
-            <label for="styleInput">الستايل المفضل</label>
-            <select id="styleInput">
-              <option value="مبهج وكارتوني">مبهج وكارتوني</option>
-              <option value="هادئ وراقي">هادئ وراقي</option>
-              <option value="دافئ وذكريات">دافئ وذكريات</option>
-              <option value="مش متأكد">مش متأكد — ساعدوني</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-nav">
-          <button class="btn btn--ghost" data-prev>رجوع</button>
-          <button class="btn btn--pink" data-next>التالي</button>
-        </div>
-      </div>
-
-      <!-- STEP 4 -->
-      <div class="form-step" data-step="4">
         <h3 tabindex="-1">راجع طلبك</h3>
         <p class="hint">اتأكد إن كل حاجة صح قبل ما تبعت.</p>
 
@@ -1929,7 +1903,7 @@ function getSupabaseEndpoint() {
       const payload = JSON.parse(atob(segments[1].replace(/-/g, '+').replace(/_/g, '/')));
       if (payload.role === 'service_role') return '';
     }
-    return `${projectUrl.origin}/rest/v1/gift_orders`;
+    return `${projectUrl.origin}/rest/v1/rpc/submit_gift_order`;
   } catch {
     return '';
   }
@@ -1952,20 +1926,21 @@ const RECIPIENTS = [
 ];
 
 const FEATURES = [
-  { icon:'f-open',     accent:'#ffe4f1', title:'موقع مخصصة', text:'أول حاجة يشوفها — باسمه، وبإحساس معمول مخصوص ليه.' },
+  { icon:'f-open',     accent:'#ffe4f1', title:'موقع مخصص', text:'أول حاجة يشوفها — باسمه، وبإحساس معمول مخصوص ليه.' },
   { icon:'f-gallery',  accent:'#e4f0ff', title:'ألبوم صور',            text:'اجمع الصور واللحظات المهمة في مكان واحد مرتب.' },
   { icon:'f-letter',   accent:'#fff4d6', title:'رسالة مكتوبة',         text:'كلامك بصياغتك، بشكل حلو ومريح للقراءة.' },
   { icon:'f-voice',    accent:'#efe4ff', title:'رسالة صوتية',          text:'خلي صوتك يوصل زي ما بتحب تقوله بالظبط.' },
   { icon:'f-timeline', accent:'#e2f7f2', title:'خط زمني للذكريات',     text:'رتّب الحكاية من أولها لآخرها بشكل واضح.' },
   { icon:'f-date',     accent:'#ffe9ec', title:'تواريخ مهمة',          text:'اليوم اللي بدأ فيه كل حاجة، وأي تاريخ ليه معنى.' },
-  { icon:'f-quiz',     accent:'#e8ffe9', title:'أسئلة بنكوا',        text:'لعبة صغيرة أو أسئلة بينكم — تخلّي التجربة ممتعة.' },
+  { icon:'f-quiz',     accent:'#e8ffe9', title:'أسئلة بينكم',        text:'لعبة صغيرة أو أسئلة بينكم — تخلّي التجربة ممتعة.' },
   { icon:'f-surprise', accent:'#fff0d9', title:'مفاجأة مخفية',         text:'اختم الموقع بحاجة مكانش متوقعها.' },
   { icon:'f-secret',   accent:'#f0e6ff', title:'رسالة أخيرة سرية',     text:'كلمة تفضل محفوظة لحد ما يوصل لها بنفسه.' }
 ];
 
 /* نماذج توضيحية — مش مشاريع عملاء */
 const PORTFOLIO = [
-  { title:'المهمة', type:'The Quest Demo', icon:'m-star', accent:'linear-gradient(150deg,#e8dcff,#dceaff)', desc:'مغامرة تفاعلية فيها أسئلة واختيارات عن ذكرياتكم ومواقفكم المشتركة؛ كل إجابة بتقرّبك من كشف ذكرى جديدة وفتح الرسالة النهائية.', url:'https://mosefnos-blip.github.io/frind/', preview:'./quest-homepage-preview.png', previewWidth:1250, previewHeight:938 },
+  { title:'المهمة', type:'The Quest Demo', icon:'m-star', accent:'linear-gradient(150deg,#e8dcff,#dceaff)', desc:'مغامرة تفاعلية فيها أسئلة واختيارات عن ذكرياتكم ومواقفكم المشتركة؛ كل إجابة بتقرّبك من كشف ذكرى جديدة وفتح الرسالة النهائية.', url:'https://1levoeg-hub.github.io/q/', preview:'./quest-homepage-preview.png', previewWidth:1250, previewHeight:938 },
+  { title:'بصمة', type:'Youssef & Malak Demo', icon:'m-star', accent:'linear-gradient(150deg,#ffe0ec,#ffd6e8)', desc:'موقع بيحكي حكاية يوسف وملك، وبيجمع ذكرياتهم ورسالة وأغنيتهم في تجربة تفاعلية مليانة حب.', url:'https://riseupeg1-code.github.io/card/', preview:'./card.png', previewWidth:1470, previewHeight:822 },
   { title:'الملف السري', type:'World War Memories Demo', icon:'m-star', accent:'linear-gradient(150deg,#dceaff,#e8dcff)', desc:'موقع بطابع ملف من الحرب العالمية، مليان بذكريات وحكايات بتكشف تفاصيل حكايتكم واحدة واحدة.', url:'https://1levoeg-hub.github.io/World-War/', preview:'./World%20War.png', previewWidth:1070, previewHeight:701 },
   { title:'ملف مشفر', type:'Secret File Demo', icon:'m-star', accent:'linear-gradient(150deg,#e8dcff,#dceaff)', desc:'تجربة بطابع ملفات المخابرات، فيها بيانات سرية وتقارير مضحكة وتحليل للشخصية، وتنتهي بفتح رسالة شخصية مخفية.', url:'https://mosefnos-blip.github.io/youssef-suleiman-site/jox.html', preview:'./secret-file-preview.png', previewWidth:1250, previewHeight:950 },
   { title:'فيلم رومانسي', type:'Romantic Movie Demo', icon:'m-star', accent:'linear-gradient(150deg,#ffe0ec,#ffd6e8)', desc:'تجربة بتحوّل حكايتكم لفيلم رومانسي، بتصميم مستوحى من بوسترات السينما ومشاهد وذكريات تخلي كل تفصيلة جزء من قصة حبكم.', url:'https://1levoeg-hub.github.io/levo-movie/', preview:'./movie.png', previewWidth:801, previewHeight:876 },
@@ -1976,24 +1951,29 @@ const PACKAGES = [
   {
     id:'digital', en:'Levo Touch', ar:'لمسة Levo',
     icon:'p-1', accent:'#ffe4f1',
-    desc:'هدية رقمية مميزة، معمولة مخصوص علشان تحوّل أجمل ذكرياتكم لمفاجأة متتنسيش. ✨',
-    feats:['موقع مخصص','صور وذكريات مختارة','رسالة شخصية من اختيارك','تصميم متناسق مع المناسبة','تجربة رقمية مميزة باسم الشخص'],
+    preview:'./%D9%84%D9%85%D8%B3%D8%A9%20Levo.jpg',
+    desc:'هدية موقع، معمولة مخصوص علشان تحوّل أجمل ذكرياتكم لمفاجأة متتنسيش. ✨',
+    feats:['موقع مخصص لذكرياتكم','صور وذكريات مختارة','رسالة شخصية من اختيارك','تصميم متناسق مع المناسبة','تجربة رقمية مميزة باسم الشخص'],
     tagline:'هدية بسيطة في شكلها، كبيرة في معناها.',
-    price:499, priceLabel:'السعر يبدأ من', recommended:false
+    price:499, priceLabel:'السعر', recommended:false
   },
   {
     id:'card', en:'Levo Touch', ar:'لمسة وذكرى',
     icon:'p-2', accent:'#e4f0ff',
-    desc:'هدية ملموسة، تفتح حكاية رقمية معمولة مخصوص.',
-    feats:['موقع مخصص بالكامل يجمع الصور والرسائل والذكريات','كارت NFC مطبوع بتصميم خاص','رابط مخصص لفتح تجربة الهدية','QR Code على ظهر الكارت كطريقة بديلة لفتح الموقع','تصميم متناسق مع الشخص والمناسبة'],
+    preview:'./%D9%84%D9%85%D8%B3%D8%A9%20%D9%88%D8%B0%D9%83%D8%B1%D9%89.jpg',
+    previewWidth:1121, previewHeight:1403,
+    desc:'موقع مخصص لذكرياتكم، مع كارت NFC يخلي الوصول لهديتك أسهل وأقرب ليكم. 💌',
+    feats:['جميع مميزات لمسة Levo','كارت NFC مطبوع بتصميم خاص','رابط مخصص لفتح تجربة الهدية','QR Code على ظهر الكارت كطريقة بديلة لفتح الموقع','تصميم متناسق مع الشخص والمناسبة'],
     tagline:'كارت صغير، وراه حكاية كبيرة.',
     price:699, priceLabel:'السعر', recommended:false
   },
   {
     id:'couple', en:'Two Halves, One Story', ar:'نصّين Levo',
     icon:'p-3', accent:'#f3e4ff',
-    desc:'حكاية واحدة، وكارتين بيكملوا بعض. تجربة مخصصة ليكم، بموقع رقمي وكارتين NFC بتصميم متناسق، وكل كارت ليه نصيبه من الحكاية.',
-    feats:['الموقع المخصص بالكامل','كارتين NFC متكاملين','أسماء وتصميم متناسق','تصميم نصّين القلب','تقديم مميز'],
+    preview:'./%D9%86%D8%B5%D9%8A%D9%86%20Levo.jpeg',
+    previewWidth:1086, previewHeight:1448,
+    desc:'موقع مخصص ليكم يجمع ذكرياتكم، ومعاه كارتين NFC متصممين يكملوا بعض، واحد ليك وواحد للشخص اللي بتحبه. ❤️',
+    feats:['جميع مميزات لمسة Levo','جميع مميزات لمسة وذكرى','كارتين NFC متكاملين','أسماء وتصميم متناسق','تصميم نصّين القلب'],
     tagline:'كل تفصيلة معمولة مخصوص ليكم.',
     price:899, priceLabel:'السعر', recommended:true
   }
@@ -2002,6 +1982,15 @@ const PACKAGE_CARD_COUNTS = Object.freeze({ digital: 0, card: 1, couple: 2 });
 
 function cardCountLabel(count) {
   return count === 0 ? 'من غير كروت' : count === 1 ? 'كارت NFC واحد' : 'كارتين NFC';
+}
+
+function createOrderId() {
+  if (typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
 const FAQS = [
@@ -2013,22 +2002,16 @@ const FAQS = [
     a:'بتقول لنا الستايل والألوان والإحساس اللي بتحبه، وإحنا نحوّله لتصميم. مش محتاج تكون مصمم — إحنا بناخد الفكرة وبنشتغل عليها.' },
   { q:'هل أقدر أضيف صور ورسائل صوتية؟',
     a:'الصور أكيد. الرسائل الصوتية والفيديو بتعتمد على الباقة وحجم المشروع — بنتكلم فيها في مرحلة التجهيز وبنوضّح إزاي هتترفع بشكل خاص.' },
-  { q:'إيه الفرق بين الموقع والكارت؟',
-    a:'الموقع هو التجربة الرقمية نفسها. الكارت هو حاجة ملموسة — بحجم كارت البنك، بس من غير أي شريحة دفع — ولما تقرّبه من موبايل متوافق بيفتح الموقع.' },
   { q:'إزاي كارت NFC بيشتغل؟',
-    a:'الكارت فيه شريحة NFC بتفتح رابط الموقع عند تقريب موبايل متوافق، وممكن كمان فتح الرابط بالـ QR أو يدويًا. الشريحة والرابط مش وسيلة حماية: أي شخص معاه الرابط يقدر يفتحه، ومفيش بيانات شخصية بتتنقل بمجرد لمس الكارت.' },
+    a:'الكارت فيه شريحة NFC بتفتح رابط الموقع عند تقريب موبايل متوافق، وممكن كمان فتح الرابط بالـ QR أو يدويًا.' },
   { q:'هل الكارتين بيفتحوا نفس الموقع؟',
     a:'أيوه — الكارتين بيوصلوا لنفس التجربة. الفكرة إنهم مكمّلين لبعض بصريًا: نصّين قلب واحد.' },
   { q:'هل أقدر أفتح الهدية من غير NFC؟',
     a:'أيوه. ممكن تفتحها من أي لينك عادي، والـ QR على ظهر الكارت بيأدي نفس الغرض لو الموبايل مش بيدعم NFC.' },
-  { q:'هل أقدر أغيّر محتوى الموقع بعد التسليم؟',
-    a:'سياسة التعديلات بعد التسليم لسه محتاجة اعتماد نهائي. قبل التنفيذ هنتفق كتابةً على التعديلات المشمولة وأي تكلفة أو مدة إضافية؛ مفيش وعد بتعديلات مجانية غير محدودة.' },
   { q:'إيه مدة تجهيز الهدية؟',
-    a:'مدة التنفيذ النهائية لسه محتاجة اعتماد. بنحددها معاك حسب الباقة واكتمال الصور والمحتوى، وبنأكد الموعد قبل بدء الشغل.' },
+    a:'من يومين الى 7 ايام. بنحددها معاك حسب الباقة واكتمال الصور والمحتوى، وبنأكد الموعد قبل بدء الشغل.' },
   { q:'إزاي أطلب هديتي؟',
-    a:'دوس على «اصنع هديتك» واملأ الخطوات. لو وسيلة التواصل متاحة هيفتح التطبيق أو الرابط برسالة مجهزة، لكن لازم تبعتها بنفسك؛ الموقع مش بيستقبل الطلبات ولا يؤكد وصولها.' },
-  { q:'هل الصور والرسائل بتكون خاصة؟',
-    a:'الموقع المخصص مش وسيلة تخزين آمنة أو محمية بكلمة مرور، وأي شخص معاه الرابط يقدر يفتحه أو يشاركه. ما تبعتش بيانات حساسة. سياسة الاحتفاظ بالصور والملفات وحذفها لسه محتاجة اعتماد نهائي، ولازم تتحدد بوضوح قبل استقبال طلبات حقيقية.' }
+    a:'دوس على «اصنع هديتك» واملأ الخطوات. الطلب بيتحفظ في الموقع، وبعدها هتفتح محادثة واتساب برسالة مجهزة؛ لازم تبعتها بنفسك علشان توصلنا.' },
 ];
 
 const HOW_STEPS = [
@@ -2049,10 +2032,6 @@ const state = {
   packageId: null,
   nameA: '',
   nameB: '',
-  notes: '',
-  features: new Set(),
-  cards: '0',
-  style: 'مبهج وكارتوني',
   contact: '',
   step: 1
 };
@@ -2200,7 +2179,8 @@ function renderPackages() {
     return `
       <article class="pkg ${p.recommended ? 'recommended' : ''}" data-reveal style="--accent:${p.accent};--d:${i * .07}s">
         ${p.recommended ? '<span class="pkg-ribbon">حكايتكم سوا</span>' : ''}
-        <div class="pkg-top">
+        <div class="pkg-top ${p.preview ? 'pkg-top--preview' : ''}">
+          ${p.preview ? `<div class="pkg-preview"><img src="${esc(p.preview)}" width="${p.previewWidth || 1121}" height="${p.previewHeight || 1403}" alt="لمحة من تجربة باقة ${esc(p.ar)}" loading="lazy"></div>` : ''}
           <div class="pkg-icon"><svg viewBox="0 0 48 48"><use href="#${p.icon}"/></svg></div>
           <div class="pkg-en">${esc(p.en)}</div>
           <h3>${esc(p.ar)}</h3>
@@ -2328,12 +2308,12 @@ function cardCountForPackage(packageId) {
     : null;
 }
 
-function updateCardsSummary() {
-  const count = cardCountForPackage(state.packageId);
-  state.cards = count === null ? '0' : String(count);
-  $('#cardsSummary').textContent = count === null
-    ? 'اختار الباقة عشان يظهر عدد الكروت المتضمن.'
-    : `${cardCountLabel(count)} — العدد ثابت حسب محتويات الباقة.`;
+function updatePackageSummary() {
+  const pkg = PACKAGES.find(item => item.id === state.packageId);
+  const summary = $('#packageSummary');
+  summary.textContent = pkg
+    ? `${pkg.desc} — ${pkg.priceLabel || 'السعر'} ${pkg.price} جنيه.`
+    : 'اختار الباقة عشان يظهر وصفها وسعرها.';
 }
 
 function clearGiftStatus() {
@@ -2346,7 +2326,6 @@ function openGiftModal(prefill = {}, returnFocus = document.activeElement) {
   if (mobileNav.classList.contains('open')) closeMobileNav(false);
   if (prefill.packageId) {
     state.packageId = prefill.packageId;
-    state.cards = String(cardCountForPackage(prefill.packageId));
   }
   if (prefill.recipient) {
     state.recipient = prefill.recipient;
@@ -2384,20 +2363,12 @@ function renderModalChoices() {
   pk.innerHTML = PACKAGES.map(p => `
     <button type="button" class="chip ${state.packageId === p.id ? 'on' : ''}" data-m-pkg="${p.id}" aria-pressed="${state.packageId === p.id}">${esc(p.ar)}</button>
   `).join('');
-
-  // features
-  const ft = $('#mFeatures');
-  ft.innerHTML = FEATURES.map(f => `
-    <button type="button" class="chip ${state.features.has(f.title) ? 'on' : ''}" data-m-feat="${esc(f.title)}" aria-pressed="${state.features.has(f.title)}">${esc(f.title)}</button>
-  `).join('');
+  updatePackageSummary();
 
   // inputs
   $('#occasionInput').value = state.occasion;
   $('#nameA').value = state.nameA;
   $('#nameB').value = state.nameB;
-  $('#notesInput').value = state.notes;
-  updateCardsSummary();
-  $('#styleInput').value = state.style;
   $('#contactInput').value = state.contact;
 }
 
@@ -2417,22 +2388,13 @@ $('#mPackages').addEventListener('click', e => {
   const b = e.target.closest('[data-m-pkg]'); if (!b) return;
   state.packageId = b.dataset.mPkg;
   clearGiftStatus();
-  updateCardsSummary();
+  updatePackageSummary();
   $$('#mPackages .chip').forEach(c => {
     const selected = c === b;
     c.classList.toggle('on', selected);
     c.setAttribute('aria-pressed', String(selected));
   });
   $('#mPackages').removeAttribute('aria-invalid');
-});
-
-$('#mFeatures').addEventListener('click', e => {
-  const b = e.target.closest('[data-m-feat]'); if (!b) return;
-  const v = b.dataset.mFeat;
-  clearGiftStatus();
-  if (state.features.has(v)) state.features.delete(v); else state.features.add(v);
-  b.classList.toggle('on', state.features.has(v));
-  b.setAttribute('aria-pressed', String(state.features.has(v)));
 });
 
 $('#giftClose').addEventListener('click', closeGiftModal);
@@ -2442,8 +2404,6 @@ const formFields = {
   occasionInput: 'occasion',
   nameA: 'nameA',
   nameB: 'nameB',
-  notesInput: 'notes',
-  styleInput: 'style',
   contactInput: 'contact'
 };
 Object.entries(formFields).forEach(([id, key]) => {
@@ -2465,7 +2425,7 @@ function goStep(n, focusHeading = true) {
     bar.classList.toggle('done', i < n - 1);
     bar.classList.toggle('active', i === n - 1);
   });
-  if (n === 4) buildReview();
+  if (n === 3) buildReview();
   $('.modal-box').scrollTop = 0;
   if (focusHeading) {
     const heading = $(`.form-step[data-step="${n}"] h3`);
@@ -2487,8 +2447,19 @@ function validPhoneNumber(value) {
   const normalized = value
     .replace(/[٠-٩]/g, digit => String('٠١٢٣٤٥٦٧٨٩'.indexOf(digit)))
     .replace(/[۰-۹]/g, digit => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(digit)));
-  const digits = normalized.replace(/\D/g, '');
-  return /^\+?[\d\s().-]+$/.test(normalized) && digits.length >= 7 && digits.length <= 15;
+  const compact = normalized.replace(/[\s().-]/g, '');
+  return /^(?:01[0125]\d{8}|\+?201[0125]\d{8}|00201[0125]\d{8})$/.test(compact);
+}
+
+function normalizeEgyptianPhone(value) {
+  const normalized = value
+    .replace(/[٠-٩]/g, digit => String('٠١٢٣٤٥٦٧٨٩'.indexOf(digit)))
+    .replace(/[۰-۹]/g, digit => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(digit)));
+  let digits = normalized.replace(/\D/g, '');
+  if (digits.startsWith('0020')) digits = digits.slice(4);
+  else if (digits.startsWith('20')) digits = digits.slice(2);
+  else if (digits.startsWith('0')) digits = digits.slice(1);
+  return `+20${digits}`;
 }
 
 function validateStep(n) {
@@ -2521,27 +2492,24 @@ function validateStep(n) {
     state.nameA = a; state.nameB = b;
     if (a.length < 2) { setErr('fNameA', 'اكتب اسم المستلم.'); ok = false; }
     else setErr('fNameA', '');
+    if (b.length < 2) { setErr('fNameB', 'اكتب اسمك.'); ok = false; }
+    else setErr('fNameB', '');
   }
 
-  if (n === 3) {
-    state.notes = $('#notesInput').value.trim();
+  if (n === 2) {
     const cards = cardCountForPackage(state.packageId);
-    if (cards === null) {
+    if (state.packageId && cards === null) {
       toast('اختار الباقة', 'عدد كروت NFC بيتحدد حسب محتويات الباقة.');
       goStep(2);
       ok = false;
-    } else {
-      state.cards = String(cards);
-      updateCardsSummary();
     }
-    state.style = $('#styleInput').value;
   }
 
-  if (n === 4) {
+  if (n === 3) {
     const c = $('#contactInput').value.trim();
     state.contact = c;
     if (!validPhoneNumber(c)) {
-      setErr('fContact', 'اكتب رقم تليفون صحيح من 7 إلى 15 رقم.');
+      setErr('fContact', 'اكتب رقم موبايل مصري صحيح، مثل 01012345678 أو +201012345678.');
       ok = false;
     }
     else setErr('fContact', '');
@@ -2560,7 +2528,7 @@ $('#giftModal').addEventListener('click', e => {
 
   if (next) {
     if (!validateStep(state.step)) return;
-    goStep(Math.min(4, state.step + 1));
+    goStep(Math.min(3, state.step + 1));
   }
   if (prev) {
     goStep(Math.max(1, state.step - 1));
@@ -2579,9 +2547,6 @@ function buildReview() {
     ['اسم المستلم', state.nameA || '—'],
     ['اسمك', state.nameB || '—'],
     ['كروت NFC', p ? cardCountLabel(cardCountForPackage(p.id)) : '—'],
-    ['الستايل', state.style],
-    ['عناصر مختارة', state.features.size ? Array.from(state.features).join('، ') : 'لسه محددة'],
-    ['ملاحظات', state.notes || '—'],
     ['رقم التليفون للتواصل', state.contact || '—']
   ];
   $('#reviewBox').innerHTML = rows.map(([k, v]) =>
@@ -2591,28 +2556,35 @@ function buildReview() {
 
 /* ---- Submit ---- */
 let orderSubmissionPending = false;
-let lastSavedOrder = '';
+let lastAttemptFingerprint = '';
+let lastAttemptId = '';
+let lastSavedFingerprint = '';
+let lastSavedWhatsappUrl = '';
 
-function formatOrderSummary(payload, pkg) {
+function formatOrderSummary(payload) {
   const count = cardCountLabel(payload.cards_count);
   return [
-    'طلب هدية جديد من Levo:',
-    `• الهدية لمين: ${payload.recipient}`,
-    `• المناسبة: ${payload.occasion}`,
-    `• الباقة: ${payload.package_name}`,
-    `• السعر: ${pkg.priceLabel || 'السعر'} ${pkg.price} جنيه`,
-    `• محتويات الباقة: ${payload.package_contents.join('، ')}`,
-    `• اسم المستلم: ${payload.recipient_name}`,
-    `• اسم المُرسل: ${payload.sender_name || '—'}`,
-    `• كروت NFC: ${count}`,
-    `• الستايل: ${payload.style}`,
-    `• عناصر: ${payload.features.length ? payload.features.join('، ') : 'لسه محددة'}`,
-    `• ملاحظات: ${payload.notes || '—'}`,
-    `• رقم التليفون للتواصل: ${payload.contact}`
+    'طلب هدية جديد من Levo',
+    `رقم الطلب: ${payload.id}`,
+    `الباقة: ${payload.package_name}`,
+    `الهدية لمين: ${payload.recipient}`,
+    `المناسبة: ${payload.occasion}`,
+    `اسم المستلم: ${payload.recipient_name}`,
+    `اسم المُرسل: ${payload.sender_name || '—'}`,
+    `كروت NFC: ${count}`,
+    `رقم العميل: ${payload.contact}`
   ].join('\n');
 }
 
-function showOrderStatus(kind, title, message, summary = '') {
+function openOrderWhatsapp(url) {
+  try {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  } catch (error) {
+    console.warn('Could not open the Levo WhatsApp conversation:', error);
+  }
+}
+
+function showOrderStatus(kind, title, message, summary = '', whatsappUrl = '') {
   const status = $('#giftStatus');
   status.className = `form-status show ${kind}`;
   const heading = document.createElement('b');
@@ -2620,6 +2592,16 @@ function showOrderStatus(kind, title, message, summary = '') {
   const detail = document.createElement('p');
   detail.textContent = message;
   status.replaceChildren(heading, detail);
+
+  if (whatsappUrl) {
+    const whatsappButton = document.createElement('a');
+    whatsappButton.className = 'btn btn--teal';
+    whatsappButton.href = whatsappUrl;
+    whatsappButton.target = '_blank';
+    whatsappButton.rel = 'noopener noreferrer';
+    whatsappButton.textContent = 'افتح واتساب لإكمال إرسال الطلب';
+    status.append(whatsappButton);
+  }
 
   if (!summary) return;
   const textarea = document.createElement('textarea');
@@ -2643,7 +2625,7 @@ function showOrderStatus(kind, title, message, summary = '') {
 $('#giftSubmit').addEventListener('click', async () => {
   if (orderSubmissionPending) return;
   clearGiftStatus();
-  if (!validateStep(4)) return;
+  if (!validateStep(3)) return;
   buildReview();
 
   const recipient = RECIPIENTS.find(x => x.id === state.recipient);
@@ -2655,21 +2637,46 @@ $('#giftSubmit').addEventListener('click', async () => {
   }
 
   const payload = {
+    id: '',
     recipient: recipient.ar,
     occasion: state.occasion,
     package_id: pkg.id,
     package_name: pkg.ar,
+    package_price: pkg.price,
+    package_price_label: pkg.priceLabel || 'السعر',
+    package_description: pkg.desc,
     package_contents: pkg.feats,
     recipient_name: state.nameA,
     sender_name: state.nameB,
-    notes: state.notes,
-    features: Array.from(state.features),
+    notes: '',
+    features: [],
     cards_count: cardCount,
-    style: state.style,
+    style: 'مش متأكد',
     contact: state.contact,
     contact_preference: 'غير محدد'
   };
-  const summary = formatOrderSummary(payload, pkg);
+  payload.contact = normalizeEgyptianPhone(payload.contact);
+  const fingerprint = JSON.stringify(payload);
+  if (lastSavedFingerprint === fingerprint) {
+    openOrderWhatsapp(lastSavedWhatsappUrl);
+    showOrderStatus(
+      'ok',
+      'الطلب محفوظ بالفعل.',
+      'لم ننشئ طلبًا مكررًا. افتح واتساب وأكمل إرسال الرسالة يدويًا.',
+      '',
+      lastSavedWhatsappUrl
+    );
+    return;
+  }
+
+  if (lastAttemptFingerprint !== fingerprint) {
+    lastAttemptFingerprint = fingerprint;
+    lastAttemptId = createOrderId();
+  }
+  payload.id = lastAttemptId;
+  const summary = formatOrderSummary(payload);
+  const whatsappMessage = summary;
+  const whatsappUrl = `https://wa.me/201002313498?text=${encodeURIComponent(whatsappMessage)}`;
   const endpoint = getSupabaseEndpoint();
   if (!endpoint) {
     showOrderStatus(
@@ -2678,12 +2685,6 @@ $('#giftSubmit').addEventListener('click', async () => {
       'بيانات الاتصال أو إعداد جدول الطلبات غير مكتملة. راجع إعدادات الموقع قبل استقبال الطلبات.',
       summary
     );
-    return;
-  }
-
-  const fingerprint = JSON.stringify(payload);
-  if (lastSavedOrder === fingerprint) {
-    showOrderStatus('ok', 'الطلب ده اتبعت بالفعل.', 'لم نرسل نسخة مكررة. عدّل أي اختيار لو عايز تبعت طلبًا مختلفًا.');
     return;
   }
 
@@ -2702,27 +2703,39 @@ $('#giftSubmit').addEventListener('click', async () => {
         apikey: SUPABASE.anonKey.trim(),
         Authorization: `Bearer ${SUPABASE.anonKey.trim()}`,
         'Content-Type': 'application/json',
-        Prefer: 'return=minimal'
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ order_payload: payload }),
       signal: controller.signal
     });
-    if (!response.ok) throw new Error(`Order endpoint rejected the order (HTTP ${response.status})`);
-    lastSavedOrder = fingerprint;
+    if (!response.ok) {
+      const details = await response.text();
+      throw new Error(`Order endpoint rejected the order (HTTP ${response.status}): ${details}`);
+    }
+    lastSavedFingerprint = fingerprint;
+    lastSavedWhatsappUrl = whatsappUrl;
+    openOrderWhatsapp(whatsappUrl);
     showOrderStatus(
       'ok',
-      'تم إرسال طلبك بنجاح.',
-      'هنراجع التفاصيل ونتواصل معاك قريبًا على رقم التليفون اللي سجلته.'
+      'تم حفظ طلبك بنجاح.',
+      'افتح محادثة واتساب وأرسل الرسالة بنفسك. فتح المحادثة لا يعني أن الرسالة أُرسلت؛ لو لم تفتح تلقائيًا استخدم الزر أدناه.',
+      '',
+      whatsappUrl
     );
   } catch (error) {
     console.error('Levo order could not be saved to Supabase:', error);
     let message = 'الطلب لم يُحفظ. راجع اتصال الإنترنت وحاول مرة تانية؛ بيانات الفورم لسه موجودة.';
     if (error.name === 'AbortError') {
       message = 'انتهت مهلة الاتصال قبل تأكيد الحفظ. ما نقدرش نأكد تسجيل الطلب؛ راجع الجدول قبل إعادة المحاولة لتجنب التكرار.';
+    } else if (/new row violates row-level security policy/i.test(error.message)) {
+      message = 'دالة الحفظ لم تتجاوز RLS كما يجب. تأكد أن ملف supabase/gift_orders.sql شُغّل كاملًا على مشروع الموقع من SQL Editor بصلاحية postgres.';
+    } else if (/submit_gift_order|schema cache/i.test(error.message)) {
+      message = 'إجراء حفظ الطلب غير موجود أو لم تُحدّثه قاعدة البيانات. نفّذ نسخة ملف supabase/gift_orders.sql الحالية على مشروع Supabase المرتبط بالموقع.';
     } else if (error.message.includes('HTTP 401') || error.message.includes('HTTP 403')) {
       message = 'تعذر إرسال الطلب بسبب إعدادات الاتصال. حاول مرة تانية أو تواصل معانا بطريقة بديلة.';
     } else if (error.message.includes('HTTP 400') || error.message.includes('HTTP 404')) {
-      message = 'تعذر إرسال بيانات الطلب. حاول مرة تانية، ولو استمرت المشكلة تواصل معانا بطريقة بديلة.';
+      message = /column|schema cache|does not exist/i.test(error.message)
+        ? 'تعذر حفظ الطلب لأن جدول الطلبات لا يحتوي على أعمدة الباقة المطلوبة. نفّذ آخر نسخة من ملف supabase/gift_orders.sql في Supabase، ثم حاول مرة تانية.'
+        : 'رفض جدول الطلبات البيانات المرسلة. راجع إعداداته في Supabase، ثم حاول مرة تانية.';
     } else if (error.message.startsWith('Order endpoint rejected')) {
       message = 'الطلب ما اتبعتش. حاول مرة تانية، ولو استمرت المشكلة تواصل معانا بطريقة بديلة.';
     }

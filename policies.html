@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFD6E8">
+<meta name="description" content="السياسات والشروط وسياسة الخصوصية لخدمات Levo.">
+<title>السياسات والشروط — Levo 💗</title>
+<link rel="icon" type="image/png" href="./logo_levo1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2B2140;
+  --ink-soft:#5B4A7A;
+  --cream:#FFF6EA;
+  --pink:#FF8FC7;
+  --pink-deep:#FF5FA2;
+  --yellow:#FFD84D;
+  --purple:#B28DFF;
+  --line:3px solid var(--ink);
+  --line-thick:4px solid var(--ink);
+  --shadow:6px 6px 0 var(--ink);
+  --maxw:1000px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px;-webkit-text-size-adjust:100%}
+body{
+  min-height:100vh;margin:0;color:var(--ink);
+  font-family:'Baloo Bhaijaan 2',system-ui,sans-serif;font-weight:500;line-height:1.85;
+  background:
+    radial-gradient(circle at 8% 4%,#ffe3f1 0%,transparent 42%),
+    radial-gradient(circle at 92% 10%,#ddf2ff 0%,transparent 40%),
+    radial-gradient(circle at 14% 88%,#fff4cf 0%,transparent 45%),
+    linear-gradient(180deg,#FFF6EA 0%,#fdeaf5 48%,#eaf4ff 100%);
+}
+a{color:inherit}
+.wrap{width:min(var(--maxw),100%);margin-inline:auto;padding-inline:clamp(16px,4vw,36px)}
+.topbar{padding:18px 0}
+.topbar-inner{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.logo{width:clamp(100px,18vw,148px);height:auto}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 18px;
+  border:var(--line);border-radius:999px;background:#fff;box-shadow:4px 4px 0 var(--ink);
+  font-family:'Lalezar',cursive;font-size:17px;text-decoration:none;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.back-link:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+main{padding:clamp(22px,5vw,54px) 0 76px}
+.page-heading{text-align:center;margin:0 auto 30px}
+.eyebrow{
+  display:inline-block;padding:5px 16px;border:2.5px solid var(--ink);border-radius:999px;
+  background:var(--yellow);box-shadow:3px 3px 0 var(--ink);
+  font-weight:800;font-size:14px;
+}
+h1,h2{font-family:'Lalezar',cursive;font-weight:400;line-height:1.3}
+h1{font-size:clamp(34px,6vw,58px);margin:18px 0 8px}
+.updated{color:var(--ink-soft);font-weight:700}
+.intro{
+  max-width:760px;margin:22px auto 0;padding:20px 24px;
+  border:var(--line-thick);border-radius:24px;background:#fff;box-shadow:var(--shadow);
+  font-size:17px;
+}
+.policy-list{display:grid;gap:18px;margin-top:30px}
+.policy-section{
+  padding:clamp(20px,4vw,30px);border:var(--line-thick);border-radius:24px;
+  background:rgba(255,255,255,.92);box-shadow:5px 5px 0 var(--ink);
+}
+.policy-section:nth-child(3n+1){background:#fff}
+.policy-section:nth-child(3n+2){background:#fff4fb}
+.policy-section:nth-child(3n){background:#f2efff}
+.policy-section h2{font-size:clamp(22px,3vw,29px);margin-bottom:12px}
+.policy-section p+p{margin-top:12px}
+.policy-section ul{padding:0 24px 0 0;margin:10px 0 14px;list-style:disc}
+.policy-section li{padding-right:3px;margin:4px 0}
+.notice{
+  margin-top:14px;padding:14px 18px;border-right:5px solid var(--pink-deep);
+  border-radius:12px;background:#fff;font-weight:700;
+}
+.contact-card{
+  display:inline-flex;align-items:center;gap:13px;margin-top:8px;padding:12px 18px;
+  border:var(--line-thick);border-radius:20px;background:#7EE787;box-shadow:4px 4px 0 var(--ink);
+  text-decoration:none;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.contact-card:hover{transform:translate(-3px,-3px) rotate(-1deg);box-shadow:7px 7px 0 var(--ink);background:#8ff097}
+.contact-icon{display:grid;place-items:center;flex:none;width:48px;height:48px;border:2.5px solid var(--ink);border-radius:15px;background:#fff}
+.contact-icon svg{width:29px;height:29px}
+.contact-copy{display:grid;line-height:1.35}
+.contact-copy strong{font-family:'Lalezar',cursive;font-size:19px;font-weight:400}
+.contact-copy small{font-size:14px;font-weight:700}
+.contact-bubble{font-size:25px;align-self:flex-start;transform:rotate(8deg)}
+@media(max-width:400px){
+  .contact-card{gap:9px;padding:10px 12px}
+  .contact-icon{width:42px;height:42px}
+  .contact-copy small{font-size:12px}
+}
+.closing{
+  margin-top:28px;padding:clamp(24px,5vw,38px);text-align:center;
+  border:var(--line-thick);border-radius:28px;background:var(--pink);box-shadow:var(--shadow);
+}
+.closing p+p{margin-top:10px}
+.closing strong{font-family:'Lalezar',cursive;font-size:23px;font-weight:400}
+.page-footer{
+  padding:22px 0;text-align:center;background:var(--ink);color:#f4ecff;
+  border-top:var(--line-thick);font-size:14px;
+}
+.page-footer a{color:var(--yellow);font-weight:700;text-underline-offset:3px}
+@media(max-width:520px){
+  .topbar-inner{align-items:flex-start}
+  .back-link{font-size:15px;padding:8px 12px}
+  .intro{padding:17px;font-size:16px}
+  .policy-section{border-radius:19px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a href="./index.html" aria-label="Levo — الصفحة الرئيسية">
+      <img class="logo" src="./logo_levo.png" width="190" height="95" alt="Levo">
+    </a>
+    <a class="back-link" href="./index.html">العودة للموقع <span aria-hidden="true">←</span></a>
+  </div>
+</header>
+
+<main class="wrap">
+  <header class="page-heading">
+    <span class="eyebrow">Levo 💗</span>
+    <h1>السياسات والشروط</h1>
+    <p class="updated">آخر تحديث: 27 أكتوبر 2026</p>
+    <p class="intro">
+      أهلًا بيك في Levo! إحنا بنحوّل الصور والذكريات والرسائل لهدايا رقمية مخصصة، مع إمكانية إضافة كروت NFC مطبوعة علشان الهدية الرقمية يبقى ليها ذكرى ملموسة.
+      <br>هدفنا إنك تعمل هدية مميزة لشخص غالي عليك، وتكون عارف تفاصيل الطلب من البداية. علشان كده، ياريت تقرأ السياسات البسيطة دي قبل ما تطلب.
+    </p>
+  </header>
+
+  <div class="policy-list">
+    <section class="policy-section" aria-labelledby="order">
+      <h2 id="order">1. الطلب وتأكيده</h2>
+      <p>تقدر تبدأ طلبك من خلال نموذج الطلب الموجود على الموقع، وبعدها تكمل معانا على واتساب علشان نتفق على تفاصيل الهدية.</p>
+      <p>الطلب مش بيتأكد بمجرد ملء النموذج. لازم نتواصل معاك ونتفق على الباقة، والسعر النهائي، والتفاصيل المطلوبة، وموعد التسليم المتوقع.</p>
+      <p>بنبدأ التنفيذ بعد تأكيد التفاصيل وسداد العربون المتفق عليه.</p>
+    </section>
+
+    <section class="policy-section" aria-labelledby="payment">
+      <h2 id="payment">2. الأسعار والدفع</h2>
+      <p>أسعار الباقات موضحة على الموقع بالجنيه المصري، وتكلفة الشحن مش داخلة في سعر الباقة؛ بتتحدد بشكل منفصل حسب مكان التسليم.</p>
+      <p>طرق الدفع المتاحة حاليًا:</p>
+      <ul><li>InstaPay.</li><li>Vodafone Cash.</li></ul>
+      <p>قيمة العربون وباقي المبلغ المستحق هنتفق عليهم معاك قبل بدء التنفيذ، وهتكون التفاصيل واضحة في محادثة الطلب.</p>
+    </section>
+
+    <section class="policy-section" aria-labelledby="customization">
+      <h2 id="customization">3. تخصيص الهدية والتعديلات</h2>
+      <p>كل هدية بتتعمل حسب التفاصيل اللي بتطلبها، زي الأسماء والصور والرسائل والألوان والعناصر التفاعلية.</p>
+      <p>قبل بدء التنفيذ، بنتفق معاك على شكل الهدية ومحتوياتها ونطاق التعديلات المتاحة.</p>
+      <p>قبل التسليم، تقدر تطلب التعديلات المتفق عليها. ولو فيه خطأ في التنفيذ من ناحيتنا، زي اسم مكتوب بشكل مخالف للتفاصيل اللي اعتمدتها، هنعمل على تصحيحه من غير تكلفة إضافية.</p>
+      <p>بعد اعتماد التصميم والتسليم، أي تغيير جديد أو إضافة مش ضمن الاتفاق الأصلي ممكن يحتاج تكلفة إضافية، وهنوضحها لك قبل ما ننفذها.</p>
+    </section>
+
+    <section class="policy-section" aria-labelledby="delivery">
+      <h2 id="delivery">4. مدة التجهيز والتسليم</h2>
+      <p>مدة تجهيز الهدية عادة من يومين إلى سبعة أيام، حسب طبيعة الطلب والباقة واكتمال الصور والمحتوى المطلوب.</p>
+      <p>بنتفق معاك على الموعد المتوقع قبل بدء التنفيذ. ولو حصل أي تغيير مؤثر في الموعد، هنتواصل معاك ونوضح لك.</p>
+      <p>بالنسبة للكروت المطبوعة، تكلفة الشحن بتتحدد بشكل منفصل، وموعد وصول الشحنة بيعتمد على شركة الشحن والمنطقة.</p>
+    </section>
+
+    <section class="policy-section" aria-labelledby="nfc">
+      <h2 id="nfc">5. كروت NFC وQR</h2>
+      <p>كارت NFC بيفتح رابط الهدية لما تقرّبه من موبايل متوافق مع التقنية. وتقدر كمان تفتح الهدية من الرابط المباشر أو عن طريق QR الموجود على الكارت.</p>
+      <p>توافق NFC بيختلف حسب نوع الموبايل وإعداداته، علشان كده بنوفر طريقة بديلة للوصول للهدية بالرابط أو QR.</p>
+    </section>
+
+    <section class="policy-section" aria-labelledby="gift-privacy">
+      <h2 id="gift-privacy">6. الخصوصية ومحتوى الهدية</h2>
+      <p>مهم تعرف إن مواقع الهدايا الحالية مش محمية بكلمة مرور. الصفحة اللي بتتفتح من الرابط متاحة على الإنترنت، وأي شخص يقدر يوصل للرابط ممكن يشوف المحتوى الموجود فيها.</p>
+      <p>وجود كارت NFC أو QR مش معناه إن الموقع خاص أو إن الرابط محمي.</p>
+      <p>علشان كده، بلاش تبعت بيانات مالية أو كلمات مرور أو معلومات شديدة الحساسية علشان نضيفها للهدية.</p>
+      <p>بنستخدم البيانات والصور والرسائل اللي بتبعتها علشان ننفذ طلبك ونتواصل معاك بخصوصه. ومش بنستخدم محتوى هديتك في الإعلانات أو معرض أعمال Levo من غير ما ناخد موافقتك بشكل منفصل.</p>
+      <p>لو بتبعت صور أو محتوى يخص شخصًا آخر، اتأكد إن عندك الحق في مشاركته واستخدامه في الهدية.</p>
+    </section>
+
+    <section class="policy-section" aria-labelledby="personal-data">
+      <h2 id="personal-data">7. البيانات الشخصية</h2>
+      <p>ممكن نحتاج اسمك ورقم تليفونك وتفاصيل الطلب وعنوان الشحن عند طلب كروت مطبوعة، بالإضافة إلى الصور والرسائل اللي بتختار تضيفها للهدية.</p>
+      <p>بنستخدم البيانات دي لاستقبال الطلب وتنفيذه ومتابعته، وقد تتم معالجتها من خلال الخدمات التقنية المستخدمة في تشغيل الموقع والتواصل معاك، زي خدمات الاستضافة وقاعدة بيانات الطلبات وواتساب.</p>
+      <p>مش بنبيع بيانات العملاء لأطراف أخرى.</p>
+      <p>لو عندك استفسار عن بياناتك أو عايز تطلب تصحيحها أو حذف محتوى قدمته، تواصل معانا علشان نراجع الطلب ونتعامل معاه حسب طبيعة البيانات وإمكانية حذفها والالتزامات المتعلقة بالطلب.</p>
+    </section>
+
+    <section class="policy-section" aria-labelledby="hosting">
+      <h2 id="hosting">8. استضافة الموقع وتسليمه</h2>
+      <p>لكل هدية رابط خاص بيها، وبنوضح لك قبل بدء التنفيذ طريقة تسليم الموقع وإدارته.</p>
+      <p>استمرار الموقع بيعتمد على خدمة الاستضافة وحالة الحساب وإعداداته. وأي تغيير في الحساب أو إعدادات النشر أو حذف ملفات الموقع ممكن يأثر على الرابط.</p>
+      <p>لو استلمت إدارة الموقع أو حسابًا مخصصًا ليه، حافظ على بيانات الدخول ووسائل الاسترداد، وما تشاركش كلمة المرور مع أشخاص غير موثوقين.</p>
+    </section>
+
+    <section class="policy-section" aria-labelledby="cancellation">
+      <h2 id="cancellation">9. الإلغاء والاسترداد</h2>
+      <p>لو حبيت تلغي طلبك، اتواصل معانا في أقرب وقت علشان نراجع حالة الطلب.</p>
+      <p>لأن بعض الهدايا بتتعمل مخصوص بالأسماء والصور والرسائل، وبعض الكروت بتتطبع بتصميم مخصص، فإمكانية الإلغاء أو الاسترداد بتختلف حسب مرحلة التنفيذ وطبيعة المنتج والخدمة.</p>
+      <p>هنوضح لك حالة الطلب وأي أعمال أو طباعة تمت بالفعل، ونتعامل مع طلب الإلغاء أو الاسترداد وفقًا للحقوق المقررة قانونًا والظروف الفعلية للطلب.</p>
+      <p>لو الكارت وصل تالفًا، أو الموقع فيه خطأ ناتج عن التنفيذ من ناحيتنا، تواصل معانا علشان نراجع المشكلة ونعالجها حسب طبيعتها وحقوقك القانونية.</p>
+      <p>أي اتفاق بخصوص الإلغاء أو الاسترداد مش معناه التنازل عن أي حق قانوني مستحق للعميل.</p>
+    </section>
+
+    <section class="policy-section" aria-labelledby="rights">
+      <h2 id="rights">10. حقوق الصور والتصميمات</h2>
+      <p>الصور والرسائل والمواد اللي بتبعتها تفضل ملكًا لأصحابها، وبتستخدمها Levo لتنفيذ الهدية المطلوبة.</p>
+      <p>التصميمات العامة والقوالب والمكونات البرمجية الخاصة بـ Levo مش بتنتقل ملكيتها تلقائيًا للعميل، إلا لو اتفقنا كتابةً على تسليم حقوق أو ملفات محددة.</p>
+      <p>مش بنعرض هديتك أو صورها باعتبارها مشروعًا من أعمالنا من غير موافقتك.</p>
+    </section>
+
+    <section class="policy-section" aria-labelledby="contact">
+      <h2 id="contact">11. التواصل وحل المشكلات</h2>
+      <p>لو عندك استفسار عن باقة، أو محتاج تعدّل تفاصيل طلبك، أو واجهت مشكلة في الموقع أو الكارت، تواصل معانا على واتساب:</p>
+      <p><a class="contact-card" href="https://wa.me/201002313498" target="_blank" rel="noopener noreferrer" aria-label="تواصل مع Levo على واتساب، +201002313498">
+        <span class="contact-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 3.5a12 12 0 0 0-10.3 18.2L4 28l6.5-1.7A12 12 0 1 0 16 3.5Z" fill="#7EE787" stroke="#2B2140" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M12.1 10.1c-.4-.8-.8-.8-1.2-.8h-1c-.4 0-.9.2-1.3.7-.5.5-1.7 1.7-1.7 4.1s1.8 4.7 2 5c.3.3 3.5 5.5 8.6 7.5 4.2 1.7 5 .4 5.9.4.9-.1 2.9-1.2 3.3-2.4.4-1.1.4-2.1.3-2.3-.1-.2-.4-.4-.9-.6l-3.1-1.5c-.4-.2-.8-.3-1.1.3-.4.5-1.3 1.6-1.6 1.9-.3.4-.6.4-1.1.1-.4-.2-2-.7-3.8-2.3-1.4-1.2-2.3-2.7-2.6-3.2-.3-.5 0-.7.2-1 .2-.2.5-.6.7-.9.2-.3.3-.5.5-.9.1-.3 0-.7-.1-.9l-1.4-3.2Z" fill="#2B2140" transform="translate(2 0) scale(.84)"/>
+          </svg>
+        </span>
+        <span class="contact-copy"><strong>واتساب Levo</strong><small><bdi dir="ltr">+201002313498</bdi> · ابعتلنا رسالتك</small></span>
+        <span class="contact-bubble" aria-hidden="true">💬</span>
+      </a></p>
+      <p>هنراجع استفسارك ونتابع معاك للوصول إلى حل مناسب.</p>
+    </section>
+  </div>
+
+  <section class="closing" aria-labelledby="closing-title">
+    <h2 id="closing-title">أخيرًا</h2>
+    <p>إحنا في Levo بنهتم إن الهدية توصل بالشكل اللي تخيلته، وإن التفاصيل تكون واضحة من البداية.</p>
+    <p>بنحتفظ بحق تحديث السياسات دي عند الحاجة، مع توضيح أي تغيير مهم للعملاء، ومن غير الانتقاص من الحقوق القانونية المقررة لهم.</p>
+    <p>شكرًا إنك اخترت Levo علشان تصنع ذكرى مميزة. 💗</p>
+    <p><strong>Levo — مواقع صغيرة، لمشاعر كبيرة.</strong></p>
+  </section>
+</main>
+
+<footer class="page-footer">
+  <div class="wrap"><a href="./index.html">العودة إلى Levo</a> · مواقع صغيرة، لمشاعر كبيرة. 💗</div>
+</footer>
+</body>
+</html>

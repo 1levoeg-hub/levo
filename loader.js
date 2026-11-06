@@ -2,7 +2,7 @@
   'use strict';
 
   var CONFIG = {
-    logo: './logo_levo1.png',
+    logo: './logo_Loader.png',
     minShow: 1500,
     quickShow: 550,
     maxWait: 7000,

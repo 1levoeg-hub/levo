@@ -34,6 +34,7 @@ jobs:
           cp ./*.html CNAME _site/
           cp loader.js _site/
           cp robots.txt sitemap.xml _site/
+          cp llms.txt _site/
           cp ./*.png _site/
           cp ./*.jpg ./*.jpeg _site/
 

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFD6E8">
+<script src="./loader.js"></script>
+<title>Levo — تصاميم الكروت</title>
+<meta name="description" content="أمثلة لتصاميم كروت Levo NFC، كروت فردية وكروت نصّين بتكمّل بعض.">
+<link rel="canonical" href="https://levo.riseupaxis.com/cards.html">
+<meta property="og:title" content="Levo — تصاميم الكروت">
+<meta property="og:description" content="شوف تصاميم كروت Levo NFC الفردية وكروت النصّين، واختار الكارت اللي يكمّل حكايتكم.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Levo">
+<meta property="og:locale" content="ar_EG">
+<meta property="og:url" content="https://levo.riseupaxis.com/cards.html">
+<meta property="og:image" content="https://levo.riseupaxis.com/logo_levo.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="./logo_levo1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2B2140;--ink-soft:#5B4A7A;--cream:#FFF6EA;
+  --pink:#FF8FC7;--pink-deep:#FF5FA2;--teal:#5ED6C9;--yellow:#FFD84D;
+  --purple:#B28DFF;--purple-deep:#7B53E0;--green:#7EE787;--red:#FF6B6B;
+  --line:3px solid var(--ink);--line-thick:4px solid var(--ink);
+  --sh-sm:4px 4px 0 var(--ink);--sh:6px 6px 0 var(--ink);
+  --r:24px;--r-lg:32px;
+  --bounce:cubic-bezier(.34,1.56,.64,1);
+  --maxw:1200px;--hud-h:72px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;font-family:'Baloo Bhaijaan 2',system-ui,sans-serif;font-weight:500;
+  color:var(--ink);background:var(--cream);line-height:1.75;overflow-x:hidden;position:relative;min-height:100vh;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(circle at 8% 4%, #ffe3f1 0%, transparent 42%),
+    radial-gradient(circle at 92% 10%, #ddf2ff 0%, transparent 40%),
+    radial-gradient(circle at 14% 88%, #fff4cf 0%, transparent 45%),
+    radial-gradient(circle at 88% 92%, #ece2ff 0%, transparent 45%),
+    linear-gradient(180deg,#FFF6EA 0%,#fdeaf5 40%,#eaf4ff 100%);
+  background-attachment:fixed;
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.45;
+  background-image:radial-gradient(circle, rgba(43,33,64,.13) 1.5px, transparent 1.6px);
+  background-size:28px 28px;
+}
+h1,h2,h3,h4{font-family:'Lalezar',cursive;font-weight:400;line-height:1.2;margin:0}
+p{margin:0}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+ul{margin:0;padding:0;list-style:none}
+:focus-visible{outline:4px solid var(--purple-deep);outline-offset:3px;border-radius:8px}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+
+/* reveal */
+.reveal-ready{opacity:0;transform:translateY(30px);transition:opacity .75s var(--bounce),transform .75s var(--bounce);transition-delay:var(--d,0s)}
+.reveal-ready.in{opacity:1;transform:none}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:'Lalezar',cursive;font-size:19px;line-height:1;
+  padding:16px 30px;min-height:56px;border-radius:999px;
+  border:var(--line-thick);background:#fff;color:var(--ink);box-shadow:var(--sh-sm);
+  transition:transform .18s var(--bounce),box-shadow .18s var(--bounce),background .2s ease;white-space:nowrap;
+}
+.btn:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn--pink{background:var(--pink-deep);color:#fff}
+.btn--pink:hover{background:#ff4f99}
+.btn--yellow{background:var(--yellow)}
+.btn--purple{background:var(--purple);color:#fff}
+.btn--sm{font-size:16px;padding:12px 22px;min-height:46px}
+.btn--lg{font-size:23px;padding:20px 44px;min-height:68px}
+
+/* header */
+.site-header{
+  position:sticky;top:0;z-index:100;background:rgba(255,246,234,.9);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:var(--line-thick);
+}
+.header-inner{
+  max-width:var(--maxw);margin:0 auto;padding:10px clamp(14px,4vw,40px);
+  display:flex;align-items:center;gap:clamp(12px,2vw,26px);min-height:var(--hud-h);
+}
+.brand-logo{display:block;width:110px;height:auto;transition:transform .3s var(--bounce)}
+.brand:hover .brand-logo{transform:rotate(-2deg) scale(1.04)}
+.main-nav{display:flex;align-items:center;gap:4px;margin-inline-start:auto}
+.main-nav a{font-family:'Lalezar',cursive;font-size:17px;padding:8px 14px;border-radius:999px;color:var(--ink-soft);transition:.22s var(--bounce)}
+.main-nav a:hover{color:var(--ink);background:#fff;box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px)}
+.main-nav a.active{color:var(--ink);background:var(--yellow);box-shadow:3px 3px 0 var(--ink)}
+.header-cta{margin-inline-start:8px}
+@media (max-width:940px){
+  .main-nav a:not(.active):not(.keep){display:none}
+  .header-cta{display:none}
+  .main-nav{margin-inline-start:auto}
+}
+@media (max-width:600px){.brand-logo{width:92px}}
+
+/* hero */
+.hero{position:relative;padding:clamp(36px,6vw,64px) 0 clamp(20px,3vw,36px);text-align:center}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:9px;font-family:'Lalezar',cursive;font-size:15px;
+  background:#fff;padding:8px 18px;border-radius:999px;border:var(--line);box-shadow:var(--sh-sm);
+  transform:rotate(-2deg);margin-bottom:22px;
+}
+.hero-title{font-size:clamp(38px,7vw,76px);line-height:1.08}
+.hero-title .hl{color:var(--pink-deep);text-shadow:4px 4px 0 var(--yellow)}
+.hero-sub{margin:20px auto 0;max-width:58ch;font-size:clamp(16px,1.9vw,19px);font-weight:600;color:var(--ink-soft);line-height:1.85}
+.hero-note{
+  margin:26px auto 0;max-width:640px;display:flex;gap:10px;align-items:flex-start;text-align:start;
+  font-size:14px;font-weight:700;color:var(--ink);background:var(--yellow);
+  border:var(--line);border-radius:18px;padding:12px 18px;box-shadow:3px 3px 0 var(--ink);
+}
+.hero-note svg{width:20px;height:20px;flex:none;margin-top:3px}
+
+/* sections */
+.section{position:relative;padding:clamp(40px,6vw,76px) 0}
+.section-head{max-width:720px;margin-bottom:clamp(26px,4vw,44px)}
+.section-label{
+  display:inline-flex;align-items:center;gap:8px;font-family:'Lalezar',cursive;font-size:14px;letter-spacing:.08em;
+  background:#fff;padding:6px 16px;border-radius:999px;border:var(--line);box-shadow:3px 3px 0 var(--ink);
+  margin-bottom:16px;direction:ltr;
+}
+.section-label::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--pink-deep);border:2px solid var(--ink)}
+.section-title{font-size:clamp(30px,5vw,50px);line-height:1.15}
+.section-title .hl{color:var(--pink-deep);text-shadow:3px 3px 0 var(--yellow)}
+.section-sub{margin-top:14px;font-size:clamp(15px,1.8vw,18px);font-weight:600;color:var(--ink-soft);line-height:1.85;max-width:60ch}
+
+/* ============ CARDS ============ */
+.cards-grid{display:grid;gap:clamp(18px,2.6vw,30px)}
+.cards-grid--pairs{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cards-grid--singles{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:1020px){.cards-grid--singles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.cards-grid--pairs,.cards-grid--singles{grid-template-columns:1fr;max-width:480px;margin-inline:auto}}
+
+.showcase{
+  position:relative;display:flex;flex-direction:column;gap:18px;
+  padding:22px 20px 22px;border-radius:var(--r);border:var(--line-thick);
+  background:#fff;box-shadow:var(--sh);
+  transition:transform .3s var(--bounce),box-shadow .3s var(--bounce);
+}
+.showcase:hover{transform:translate(-3px,-4px);box-shadow:10px 11px 0 var(--ink)}
+.showcase-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.showcase-top h3{font-size:22px}
+.badge{
+  font-family:'Lalezar',cursive;font-size:12.5px;padding:3px 12px;border-radius:999px;
+  border:2px solid var(--ink);background:var(--accent,#ffe4f1);color:var(--ink);white-space:nowrap;
+}
+.stage{
+  position:relative;display:grid;place-items:center;
+  padding:clamp(22px,4vw,36px) 12px;border-radius:20px;border:var(--line);
+  background:var(--stage,#ffe9f4);perspective:1400px;overflow:hidden;
+}
+.stage::before{
+  content:'';position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:radial-gradient(circle, rgba(43,33,64,.14) 1.4px, transparent 1.5px);background-size:20px 20px;
+}
+
+/* a set = 1 card (single) or 2 cards (pair). LTR so left stays left. */
+.set{position:relative;display:flex;align-items:center;justify-content:center;gap:0;direction:ltr}
+.card{
+  --ar:1.5;
+  position:relative;flex:none;width:var(--w);aspect-ratio:var(--ar);
+  transform-style:preserve-3d;
+  transition:transform .85s var(--bounce);
+  transition-delay:var(--td,0s);
+  cursor:pointer;outline-offset:6px;
+}
+.set--single{width:100%}
+.set--single .card{--w:min(100%,300px)}
+.set--pair .card{--w:clamp(120px,19vw,210px)}
+.card .face{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  filter:drop-shadow(4px 6px 0 rgba(43,33,64,.22));
+}
+.card .face img{width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+.card .back{transform:rotateY(180deg)}
+.set.flipped .card{transform:rotateY(180deg)}
+.set--pair .card + .card{--td:.08s}
+
+/* pair: gentle "joined" hint on hover */
+.set--pair .card{transition-property:transform,margin}
+.set--pair:not(.flipped):hover .card:first-child{transform:translateX(-4px)}
+.set--pair:not(.flipped):hover .card:last-child{transform:translateX(4px)}
+
+.skeleton{
+  position:absolute;inset:0;border-radius:12px;border:3px dashed rgba(43,33,64,.25);
+  display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--ink-soft);background:rgba(255,255,255,.6);
+}
+.card.loaded .skeleton{display:none}
+
+.showcase-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.side-label{
+  font-family:'Lalezar',cursive;font-size:15px;color:var(--ink-soft);
+  display:inline-flex;align-items:center;gap:8px;
+}
+.side-label i{width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid var(--ink);display:block}
+.set-flipped-label .side-label i{background:var(--pink)}
+.flip-btn svg{width:20px;height:20px;transition:transform .5s var(--bounce)}
+.flip-btn[aria-pressed="true"] svg{transform:rotate(180deg)}
+.pair-note{font-size:13.5px;font-weight:600;color:var(--ink-soft)}
+
+/* final cta */
+.final{
+  position:relative;overflow:hidden;padding:clamp(56px,8vw,100px) 0;margin-top:clamp(20px,4vw,40px);
+  background:linear-gradient(160deg,#ffe6f3,#efe4ff 50%,#e3f5ff);border-top:var(--line-thick);text-align:center;
+}
+.final-title{font-size:clamp(32px,6vw,62px);line-height:1.1}
+.final-title .hl{color:var(--pink-deep);text-shadow:4px 4px 0 var(--yellow)}
+.final-sub{margin:16px auto 0;font-size:clamp(16px,2vw,20px);font-weight:600;color:var(--ink-soft);max-width:52ch}
+.final-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:30px}
+
+/* footer */
+.site-footer{background:var(--ink);color:#f4ecff;padding:clamp(40px,6vw,60px) 0 24px;border-top:var(--line-thick)}
+.footer-row{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.footer-logo-link{display:inline-block;padding:8px 12px;border:var(--line);border-color:#f4ecff;border-radius:18px;background:var(--cream);box-shadow:3px 3px 0 rgba(244,236,255,.35)}
+.footer-logo{width:170px;height:auto}
+.footer-links{display:flex;flex-wrap:wrap;gap:18px}
+.footer-links a{font-size:15px;color:rgba(244,236,255,.85);font-weight:600;transition:.2s}
+.footer-links a:hover{color:var(--yellow)}
+.footer-bottom{margin-top:34px;padding-top:20px;border-top:2px dashed rgba(244,236,255,.22);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:13.5px;color:rgba(244,236,255,.62)}
+.footer-bottom a{color:var(--yellow);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.footer-bottom .en{direction:ltr}
+
+@media (max-width:600px){
+  .btn{font-size:17px;padding:14px 24px;min-height:52px}
+  .btn--lg{font-size:20px;padding:17px 34px;min-height:60px}
+  .showcase{padding:18px 14px}
+  .set--pair .card{--w:clamp(100px,38vw,190px)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal-ready{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="./index.html" aria-label="Levo — الصفحة الرئيسية">
+      <img class="brand-logo" src="./logo_levo1.png" width="110" height="55" alt="Levo — Small websites. Big feelings.">
+    </a>
+    <nav class="main-nav" aria-label="التنقل الرئيسي">
+      <a href="./index.html">الرئيسية</a>
+      <a href="./index.html#work">الأمثلة</a>
+      <a href="./index.html#nfc">Levo NFC</a>
+      <a href="./cards.html" class="active keep">الكروت</a>
+      <a href="./index.html#packages">الباقات</a>
+    </nav>
+    <a class="btn btn--pink btn--sm header-cta" href="./index.html#packages">اصنع هديتك</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="wrap">
+      <span class="hero-eyebrow">Levo NFC Cards</span>
+      <h1 class="hero-title" id="heroTitle">كروت بتحكي <span class="hl">حكايتكم</span>.</h1>
+      <p class="hero-sub">شوف أمثلة لتصاميم الكروت اللي بنعملها. دوس على أي كارت أو على زرار «اقلب الكارت» علشان تشوف الوش والضهر.</p>
+      <p class="hero-note" style="margin-inline:auto">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg>
+        دي أمثلة بس. كل كارت بيتصمم مخصوص حسب اسم الشخص والمناسبة والستايل اللي تختاره.
+      </p>
+    </div>
+  </section>
+
+  <!-- PAIRS FIRST -->
+  <section class="section" id="pairs" aria-labelledby="pairsTitle">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-label">Two halves, one story</span>
+        <h2 class="section-title" id="pairsTitle">كروت <span class="hl">نصّين</span>.. بيكمّلوا بعض.</h2>
+        <p class="section-sub">كارتين متصممين يلزقوا في بعض ويكمّلوا شكل واحد بيفتحوا هديتك بلمسة، واحد ليك وواحد للشخص اللي بتحبه.</p>
+      </div>
+      <div class="cards-grid cards-grid--pairs" id="pairsGrid"></div>
+    </div>
+  </section>
+
+  <!-- SINGLES -->
+  <section class="section" id="singles" aria-labelledby="singlesTitle" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-label">Single cards</span>
+        <h2 class="section-title" id="singlesTitle">كروت <span class="hl">فردية</span>.</h2>
+        <p class="section-sub">كارت واحد بتصميم مخصوص، يفتح هديتك بلمسة أو من الـ QR على الضهر.</p>
+      </div>
+      <div class="cards-grid cards-grid--singles" id="singlesGrid"></div>
+    </div>
+  </section>
+
+  <section class="final" aria-labelledby="finalTitle">
+    <div class="wrap">
+      <h2 class="final-title" id="finalTitle">عايز كارت <span class="hl">مخصوص ليك</span>؟</h2>
+      <p class="final-sub">اختار الباقة، قول لنا الفكرة، وإحنا نصمم الكارت على مقاس حكايتكم.</p>
+      <div class="final-actions">
+        <a class="btn btn--pink btn--lg" href="./index.html#packages">شوف الباقات</a>
+        <a class="btn btn--yellow btn--lg" href="./index.html#nfc">إزاي الكارت بيشتغل؟</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-row">
+      <a class="footer-logo-link" href="./index.html" aria-label="Levo — الصفحة الرئيسية">
+        <img class="footer-logo" src="./logo_levo.png" width="170" height="85" alt="Levo">
+      </a>
+      <nav class="footer-links" aria-label="روابط الفوتر">
+        <a href="./index.html">الرئيسية</a>
+        <a href="./index.html#work">الأمثلة</a>
+        <a href="./cards.html">الكروت</a>
+        <a href="./index.html#packages">الباقات</a>
+        <a href="https://wa.me/201500126399" target="_blank" rel="noopener noreferrer">واتساب</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Levo. كل الحقوق محفوظة.</span>
+      <a href="./policies.html">السياسات والخصوصية</a>
+      <span class="en">Made with 💗 for people who matter.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+const $  = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ----------------------------------------------------------------
+   صور الكروت — بتتحمل من Google Drive بالـ File ID.
+   لازم كل ملف يكون Share → "Anyone with the link".
+   الأفضل تنزّل الصور في فولدر الموقع وتحط المسار بدل الـ ID (مثلا './cards/pair1-left-front.png')
+   ---------------------------------------------------------------- */
+const drive = id => ({ id });
+
+const PAIRS = [
+  {
+    title: 'نصّين — التصميم الأول', accent: '#ffd6e8', stage: '#fff0f7',
+    left:  { front: drive('1euRWvzjA2l1tj2izQnA6ObD3F47Qf_-A'), back: drive('1dvXS60Msc_f6BN9-8hlDprYbjZU-_o2x') },
+    right: { front: drive('1X0JqxvBtIAhtq1pBU0oSw9hKLrDhReo6'), back: drive('1Fa9HS1mnsvkOxnaR8ovssjO1KyhQ-kdx') }
+  },
+  {
+    title: 'نصّين — التصميم التاني', accent: '#e8dcff', stage: '#f4edff',
+    left:  { front: drive('1n5AEmdVrfMHFXvfcsWgOxfwFXAaMYaYF'), back: drive('1Kt61T9RXBCNhjX2qGlACkAMcnKS7QSYP') },
+    right: { front: drive('1QETZmb78Ws3XsiQVYeO7BOetGmrMKsXe'), back: drive('1-Us6iBGSuycEbeBtzrtTI3oY8GeamfPm') }
+  }
+];
+
+const SINGLES = [
+  { title: 'كارت فردي — التصميم الأول',  accent: '#ffe4f1', stage: '#fff0f7',
+    front: drive('1UwhZnDTqU6ORN1F-kpKchJJ42itGs0LN'), back: drive('18DiRURBn8BC9ZgDh70qyegBOMOfI5_tk') },
+  { title: 'كارت فردي — التصميم التاني', accent: '#dceaff', stage: '#eef5ff',
+    front: drive('1By5ZoFBT4Ob2R6D2vvun-G5gQwOhDfcm'), back: drive('19883hntFpBQzhx7WOIBtj0lTNJuQ0JLe') },
+  { title: 'كارت فردي — التصميم التالت', accent: '#fff0c9', stage: '#fff8e3',
+    front: drive('142iTKIVTBRgOY1kMP5Z5H1jWOI_SrwI5'), back: drive('1jaK-RuUngf1FnqNPUQvfNfzKmscGhIK9') }
+];
+
+const srcOf  = (img) => img.id ? `https://lh3.googleusercontent.com/d/${img.id}=w1400` : img;
+const fallOf = (img) => img.id ? `https://drive.google.com/thumbnail?id=${img.id}&sz=w1400` : '';
+
+function faceHTML(img, side, alt) {
+  return `<div class="face ${side}">
+    <img src="${esc(srcOf(img))}" data-fallback="${esc(fallOf(img))}" alt="${esc(alt)}" loading="lazy" draggable="false" referrerpolicy="no-referrer">
+  </div>`;
+}
+function cardHTML(c, label) {
+  return `<div class="card" role="button" tabindex="0" aria-label="اقلب ${esc(label)}">
+    <div class="skeleton">بيتحمّل...</div>
+    ${faceHTML(c.front, 'front', label + ' — الوش')}
+    ${faceHTML(c.back,  'back',  label + ' — الضهر')}
+  </div>`;
+}
+
+const FLIP_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg>`;
+
+function showcaseHTML(item, kind) {
+  const isPair = kind === 'pair';
+  const cards = isPair
+    ? cardHTML(item.left, item.title + ' (الشمال)') + cardHTML(item.right, item.title + ' (اليمين)')
+    : cardHTML(item, item.title);
+  return `
+  <article class="showcase" data-reveal style="--accent:${item.accent};--stage:${item.stage}">
+    <div class="showcase-top">
+      <h3>${esc(item.title)}</h3>
+      <span class="badge">${isPair ? 'كارتين NFC' : 'كارت NFC واحد'}</span>
+    </div>
+    <div class="stage">
+      <div class="set ${isPair ? 'set--pair' : 'set--single'}">${cards}</div>
+    </div>
+    <div class="showcase-actions">
+      <span class="side-label"><i></i><span data-side>الوش</span></span>
+      <button class="btn btn--purple btn--sm flip-btn" type="button" aria-pressed="false">${FLIP_ICON} اقلب الكارت</button>
+    </div>
+    ${isPair ? '<p class="pair-note">الكارتين بيتلزقوا في بعض ويكمّلوا بعض. الضهر بيظهر للاتنين مع بعض.</p>' : ''}
+  </article>`;
+}
+
+function render() {
+  $('#pairsGrid').innerHTML   = PAIRS.map(p => showcaseHTML(p, 'pair')).join('');
+  $('#singlesGrid').innerHTML = SINGLES.map(s => showcaseHTML(s, 'single')).join('');
+  $('#year').textContent = new Date().getFullYear();
+}
+
+function setupImages() {
+  $$('.card').forEach(card => {
+    const imgs = $$('img', card);
+    imgs.forEach((img, idx) => {
+      const done = () => {
+        card.classList.add('loaded');
+        // اضبط نسبة الكارت من أبعاد صورة الوش الحقيقية
+        if (idx === 0 && img.naturalWidth && img.naturalHeight) {
+          card.style.setProperty('--ar', (img.naturalWidth / img.naturalHeight).toFixed(4));
+        }
+      };
+      img.addEventListener('load', done);
+      img.addEventListener('error', () => {
+        const fb = img.dataset.fallback;
+        if (fb && img.src !== fb) { img.src = fb; img.dataset.fallback = ''; }
+        else {
+          const sk = $('.skeleton', card);
+          if (sk) sk.textContent = 'الصورة مش بتظهر. اتأكد إنها Public.';
+        }
+      });
+      if (img.complete && img.naturalWidth) done();
+    });
+  });
+}
+
+function setupFlip() {
+  $$('.showcase').forEach(box => {
+    const set = $('.set', box);
+    const btn = $('.flip-btn', box);
+    const label = $('[data-side]', box);
+    const toggle = () => {
+      const flipped = set.classList.toggle('flipped');
+      btn.setAttribute('aria-pressed', String(flipped));
+      label.textContent = flipped ? 'الضهر' : 'الوش';
+      box.classList.toggle('set-flipped-label', flipped);
+    };
+    btn.addEventListener('click', toggle);
+    $$('.card', set).forEach(c => {
+      c.addEventListener('click', toggle);
+      c.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+    });
+  });
+}
+
+function initReveal() {
+  const items = $$('[data-reveal]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!('IntersectionObserver' in window) || reduced) return;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  items.forEach((el, i) => { el.style.setProperty('--d', (i % 3) * .08 + 's'); el.classList.add('reveal-ready'); io.observe(el); });
+}
+
+render();
+setupImages();
+setupFlip();
+initReveal();
+</script>
+</body>
+</html>

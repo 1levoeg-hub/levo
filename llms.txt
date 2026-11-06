@@ -1,0 +1,26 @@
+# Levo
+
+> Levo (ليفو) خدمة مصرية بتحوّل الذكريات والصور والرسائل لهدية رقمية معمولة مخصوص لشخص غالي عليك: موقع صغير شخصي، ومعاه (حسب الباقة) كارت NFC مطبوع يفتح الموقع بلمسة على الموبايل أو بمسح QR. شعارنا: "Small websites. Big feelings."
+
+Levo is an Egyptian gift service that turns memories, photos and messages into a personalised mini-website, optionally paired with a printed NFC card (or two matching "half-heart" cards) that opens the site with a tap or QR scan. Content is in Egyptian Arabic. Prices are in EGP.
+
+## الصفحات الرئيسية
+- [الصفحة الرئيسية](https://levo.riseupaxis.com/): شرح الخدمة، الأمثلة، الباقات، الأسئلة الشائعة
+- [تصاميم الكروت](https://levo.riseupaxis.com/cards.html): أمثلة لكروت NFC الفردية وكروت النصّين
+- [السياسات والخصوصية](https://levo.riseupaxis.com/policies.html)
+
+## الباقات (بالجنيه المصري)
+- لمسة Levo — تبدأ من 499 جنيه: موقع مخصص للذكريات مع صور ورسالة شخصية، بدون كروت.
+- لمسة وذكرى — 699 جنيه: كل مميزات لمسة Levo + كارت NFC مطبوع بتصميم خاص + QR على الضهر.
+- نصّين Levo — 899 جنيه: كل ما سبق + كارتين NFC بيكمّلوا بعض (نصّين قلب واحد).
+
+## معلومات سريعة
+- الهدية مش للرومانسية بس: شريك حياة، صديق، أم، أب، أخ/أخت، عيد ميلاد، تخرج، شكر وتقدير.
+- مدة التجهيز: من يومين لـ 7 أيام حسب الباقة واكتمال المحتوى.
+- الطلب: من زر "اصنع هديتك" في الموقع، ثم إكمال الرسالة على واتساب.
+- كارت NFC بيفتح الرابط عند تقريب موبايل متوافق، والـ QR بديل لو الموبايل مش بيدعم NFC.
+
+## التواصل
+- واتساب: https://wa.me/201500126399
+- انستجرام: https://www.instagram.com/levo_eg/
+- تيك توك: https://www.tiktok.com/@levo_eg

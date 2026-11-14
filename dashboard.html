@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#FFD6E8">
+<title>لوحة Levo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;600;700&family=Lalezar&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<style>
+:root{
+  --ink:#2B2140; --pink:#FF8FC7; --pink-deep:#FF5FA2; --yellow:#FFD84D; --teal:#5ED6C9; --purple:#B28DFF;
+  --bg:#FFF3F8; --card:#fff; --muted:#7a6f8c; --line:#eadff0;
+  --h:'Lalezar','Baloo Bhaijaan 2',system-ui,sans-serif; --b:'Baloo Bhaijaan 2',system-ui,'Segoe UI',Tahoma,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:120px}
+body{margin:0;font-family:var(--b);color:var(--ink);background:var(--bg);
+  background-image:radial-gradient(circle,rgba(43,33,64,.09) 1.4px,transparent 1.5px);background-size:26px 26px;
+  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);min-height:100vh;font-size:15px;line-height:1.55}
+button,input,select{font:inherit;color:inherit}
+.hidden{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+
+/* ---------- login ---------- */
+#login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.login-card{width:min(400px,100%);background:#fff;border:4px solid var(--ink);border-radius:28px;box-shadow:8px 8px 0 var(--ink);padding:30px 26px;text-align:center}
+.login-card h1{font-family:var(--h);font-weight:400;font-size:44px;margin:0;color:var(--pink-deep);line-height:1.1}
+.login-card p{margin:6px 0 22px;color:var(--muted)}
+.field{display:block;text-align:right;margin-bottom:14px}
+.field span{display:block;font-weight:600;margin-bottom:4px;font-size:14px}
+.field input{width:100%;padding:12px 14px;border:3px solid var(--ink);border-radius:14px;background:#fff;outline:none;direction:ltr;text-align:left}
+.field input:focus{box-shadow:3px 3px 0 var(--pink)}
+.btn{border:3px solid var(--ink);background:var(--pink);border-radius:999px;padding:9px 20px;font-weight:700;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn--block{width:100%;padding:12px;font-size:17px}
+.btn--ghost{background:#fff}
+.btn--sm{padding:5px 14px;font-size:14px}
+.err{color:#c0204f;font-weight:600;min-height:24px;margin:0 0 8px;font-size:14px}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:0;z-index:20;background:rgba(255,243,248,.94);backdrop-filter:blur(8px);border-bottom:3px solid var(--ink);padding-top:env(safe-area-inset-top,0)}
+.top-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 0}
+.brand{font-family:var(--h);font-size:30px;color:var(--pink-deep);line-height:1;margin-inline-end:auto;text-shadow:2px 2px 0 var(--ink);-webkit-text-stroke:0}
+.brand small{font-family:var(--b);font-size:13px;color:var(--ink);text-shadow:none;margin-inline-start:8px;font-weight:600}
+.live{display:inline-flex;align-items:center;gap:8px;background:#fff;border:3px solid var(--ink);border-radius:999px;padding:3px 14px;font-weight:700;font-size:14px}
+.dot{width:10px;height:10px;border-radius:50%;background:#2fbf71;box-shadow:0 0 0 0 rgba(47,191,113,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(47,191,113,0)}100%{box-shadow:0 0 0 0 rgba(47,191,113,0)}}
+.ranges{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:2.5px solid var(--ink);background:#fff;border-radius:999px;padding:3px 14px;cursor:pointer;font-weight:600;font-size:14px}
+.chip.on{background:var(--yellow);box-shadow:2px 2px 0 var(--ink)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:3px solid var(--ink);background:#fff;border-radius:14px;padding:5px 16px;cursor:pointer;font-weight:700;white-space:nowrap}
+.tab.on{background:var(--pink);box-shadow:3px 3px 0 var(--ink)}
+.loadbar{height:5px;background:repeating-linear-gradient(-45deg,var(--pink-deep) 0 10px,#ff7db6 10px 20px);background-size:28px 28px;animation:stripe .8s linear infinite;opacity:0;transition:opacity .2s}
+.loadbar.on{opacity:1}
+@keyframes stripe{to{background-position:28px 0}}
+@media (prefers-reduced-motion:reduce){.loadbar,.dot{animation:none}}
+
+/* ---------- content ---------- */
+main{padding:22px 0 60px}
+.grid{display:grid;gap:18px}
+.g-kpi{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.g-2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.g-3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.card{background:var(--card);border:3px solid var(--ink);border-radius:20px;box-shadow:5px 5px 0 var(--ink);padding:18px;min-width:0}
+.card h2{font-family:var(--h);font-weight:400;font-size:22px;margin:0 0 4px;line-height:1.2}
+.card .sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+.sec-title{font-family:var(--h);font-weight:400;font-size:26px;margin:28px 0 12px}
+.sec-title:first-child{margin-top:0}
+.kpi{position:relative;overflow:hidden}
+.kpi .ico{width:38px;height:38px;border-radius:12px;border:3px solid var(--ink);display:grid;place-items:center;font-size:19px;margin-bottom:8px}
+.kpi .num{font-family:var(--h);font-size:38px;line-height:1.05}
+.kpi .lbl{font-weight:700;font-size:14px}
+.kpi .note{color:var(--muted);font-size:12.5px;margin-top:2px}
+.empty{text-align:center;padding:34px 14px;color:var(--muted)}
+.empty b{display:block;font-family:var(--h);font-weight:400;font-size:22px;color:var(--ink);margin-bottom:4px}
+
+/* funnel / bar rows */
+.frow{margin-bottom:12px}
+.frow-top{display:flex;justify-content:space-between;gap:10px;font-weight:700;margin-bottom:4px;font-size:14px}
+.frow-top span:last-child{white-space:nowrap}
+.fbar{height:30px;border:3px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}
+.ffill{height:100%;min-width:4px;border-radius:999px;background:repeating-linear-gradient(-45deg,var(--pink-deep) 0 12px,#ff7db6 12px 24px)}
+.drop{font-size:12px;color:var(--muted);margin:-6px 0 8px;padding-inline-start:6px}
+.brow{display:grid;grid-template-columns:minmax(90px,1.2fr) 2fr auto;gap:10px;align-items:center;margin-bottom:9px;font-size:14px}
+.brow .l{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.bar{height:14px;background:#f6ecf6;border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px;background:var(--c,var(--teal))}
+.brow .v{font-weight:700;white-space:nowrap;font-size:13px}
+.brow .v small{color:var(--muted);font-weight:600}
+
+/* table */
+.tw{overflow-x:auto;margin:0 -6px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:right;color:var(--muted);font-weight:600;font-size:12.5px;padding:6px 8px;white-space:nowrap;border-bottom:2px solid var(--ink)}
+td{padding:8px;border-bottom:1.5px dashed var(--line);vertical-align:middle}
+td.n,th.n{text-align:center;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.tag{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:0 9px;font-size:12px;font-weight:700;background:var(--yellow);white-space:nowrap}
+.tag.t{background:var(--teal)} .tag.p{background:var(--purple)} .tag.k{background:var(--pink)} .tag.g{background:#e9e3ef}
+.mut{color:var(--muted)}
+.chart svg{width:100%;height:auto;display:block;direction:ltr}
+.legend{display:flex;gap:14px;font-size:13px;font-weight:600;margin-top:6px;flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:12px;border:2px solid var(--ink);border-radius:4px;margin-inline-end:5px;vertical-align:-1px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+
+/* sessions */
+.sess{border:3px solid var(--ink);border-radius:16px;background:#fff;margin-bottom:10px;overflow:hidden}
+.sess-h{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 14px;cursor:pointer;background:#fff}
+.sess-h:hover{background:#fff8fc}
+.sess-time{font-weight:700;font-size:13px;line-height:1.3;min-width:78px}
+.sess-time small{display:block;color:var(--muted);font-weight:600}
+.sess-main{min-width:0}
+.sess-main .path{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sess-main .meta{color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sess-tags{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.tl{display:none;border-top:2px dashed var(--ink);padding:12px 16px;background:#fffafd}
+.sess.open .tl{display:block}
+.ev{display:grid;grid-template-columns:54px 24px 1fr;gap:8px;padding:3px 0;font-size:14px}
+.ev .t{color:var(--muted);font-size:12.5px;direction:ltr;text-align:right}
+.ev .s{color:var(--muted)}
+.more{display:block;margin:16px auto 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:30px}
+.notice{background:#fff7d6;border:3px solid var(--ink);border-radius:14px;padding:8px 14px;margin-bottom:16px;font-weight:600;font-size:14px}
+@media (max-width:560px){
+  .sess-h{grid-template-columns:1fr}.sess-tags{justify-content:flex-start}
+  .brand{font-size:26px}.kpi .num{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<!-- تسجيل الدخول -->
+<section id="login" class="hidden">
+  <div class="login-card">
+    <h1>Levo</h1>
+    <p>لوحة المتابعة · دخول صاحب الموقع</p>
+    <label class="field"><span>الإيميل</span><input id="lEmail" type="email" autocomplete="username" required></label>
+    <label class="field"><span>كلمة المرور</span><input id="lPass" type="password" autocomplete="current-password" required></label>
+    <p class="err" id="lErr" role="alert"></p>
+    <button class="btn btn--block" id="lBtn" type="button">دخول</button>
+  </div>
+</section>
+
+<!-- الداشبورد -->
+<div id="app" class="hidden">
+  <header class="top">
+    <div class="wrap">
+      <div class="top-row">
+        <div class="brand">Levo<small>لوحة المتابعة</small></div>
+        <span class="live" title="زوار آخر 5 دقايق"><span class="dot"></span><span id="liveN">0</span> على الموقع دلوقتي</span>
+        <button class="btn btn--sm btn--ghost" id="refresh" type="button">تحديث</button>
+        <button class="btn btn--sm btn--ghost" id="logout" type="button">خروج</button>
+      </div>
+      <div class="top-row" style="padding-top:0">
+        <div class="ranges" id="ranges">
+          <button class="chip on" data-r="today">النهاردة</button>
+          <button class="chip" data-r="yesterday">امبارح</button>
+          <button class="chip" data-r="7">آخر 7 أيام</button>
+          <button class="chip" data-r="30">آخر 30 يوم</button>
+          <button class="chip" data-r="90">آخر 90 يوم</button>
+        </div>
+      </div>
+      <nav class="tabs" id="tabs">
+        <button class="tab on" data-t="overview">نظرة عامة</button>
+        <button class="tab" data-t="pages">الصفحات والأقسام</button>
+        <button class="tab" data-t="clicks">الأزرار والضغطات</button>
+        <button class="tab" data-t="audience">الجمهور</button>
+        <button class="tab" data-t="sessions">الزيارات واحدة واحدة</button>
+        <button class="tab" data-t="live">مباشر</button>
+      </nav>
+    </div>
+    <div class="loadbar" id="loadbar"></div>
+  </header>
+
+  <main class="wrap">
+    <div id="notice"></div>
+    <div id="v-overview"></div>
+    <div id="v-pages" class="hidden"></div>
+    <div id="v-clicks" class="hidden"></div>
+    <div id="v-audience" class="hidden"></div>
+    <div id="v-sessions" class="hidden"></div>
+    <div id="v-live" class="hidden"></div>
+    <p class="foot">لاستبعاد زياراتك أنت من الأرقام: افتح الموقع مرة واحدة من كل جهاز بالرابط <b dir="ltr">?notrack=1</b></p>
+  </main>
+</div>
+
+<script>
+/* ========= الإعدادات ========= */
+const SB_URL = 'https://goulvnitnxrjaezmfmiz.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvdWx2bml0bnhyamFlem1mbWl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE2MTUzMTUsImV4cCI6MjEwNzE5MTMxNX0.EpFs76RdGLqD_5dw-u3scezHUgy5W_S6rJNh2dlekx8';
+const TABLE = 'analytics_events';
+const MAX_ROWS = 60000;
+
+const sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: true, autoRefreshToken: true } });
+
+/* ========= أدوات ========= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nf = n => new Intl.NumberFormat('en-US').format(Math.round(n || 0));
+const pc = (a, b) => b ? (a / b * 100).toFixed(a / b * 100 >= 10 ? 0 : 1) + '%' : '—';
+const dur = s => { s = Math.round(s || 0); if (!s) return '—'; if (s < 60) return s + ' ث'; const m = Math.floor(s / 60); if (m < 60) return m + ' د ' + (s % 60) + ' ث'; return Math.floor(m / 60) + ' س ' + (m % 60) + ' د'; };
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const pad = n => String(n).padStart(2, '0');
+const dayKey = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+const hhmm = t => { const d = new Date(t); return pad(d.getHours()) + ':' + pad(d.getMinutes()); };
+const dateAr = t => new Date(t).toLocaleDateString('ar-EG', { weekday: 'short', day: 'numeric', month: 'short' });
+const ago = ms => { const s = Math.round(ms / 1000); if (s < 60) return 'من ' + s + ' ث'; const m = Math.round(s / 60); if (m < 60) return 'من ' + m + ' د'; return 'من ' + Math.round(m / 60) + ' س'; };
+
+const PAGES = { '/': 'الصفحة الرئيسية', '/cards.html': 'تصاميم الكروت', '/policies.html': 'السياسات والخصوصية' };
+const pageName = p => PAGES[p] || p || '—';
+const SECS = { hero: 'أول الصفحة (الهيرو)', top: 'أول الصفحة', nfc: 'كارت NFC (اللمسة)', whom: 'الهدية لمين؟', inside: 'إيه اللي جوّه الهدية', work: 'أمثلة الشغل', how: 'إزاي بتشتغل', packages: 'الباقات والأسعار', about: 'عننا', faq: 'الأسئلة الشائعة', final: 'الدعوة الأخيرة', footer: 'الفوتر' };
+const SEC_ORDER = ['hero', 'top', 'nfc', 'whom', 'inside', 'work', 'how', 'packages', 'about', 'faq', 'final', 'footer'];
+const secName = s => SECS[s] || s || '—';
+const COUNTRY = { EG: 'مصر', SA: 'السعودية', AE: 'الإمارات', KW: 'الكويت', QA: 'قطر', BH: 'البحرين', OM: 'عُمان', JO: 'الأردن', LB: 'لبنان', IQ: 'العراق', LY: 'ليبيا', SD: 'السودان', MA: 'المغرب', DZ: 'الجزائر', TN: 'تونس', US: 'أمريكا', GB: 'بريطانيا', DE: 'ألمانيا', FR: 'فرنسا', CA: 'كندا', TR: 'تركيا' };
+const DAYS = ['الأحد', 'الاتنين', 'التلات', 'الأربع', 'الخميس', 'الجمعة', 'السبت'];
+
+/* ========= الدخول ========= */
+async function boot() {
+  const { data } = await sb.auth.getSession();
+  data.session ? showApp() : showLogin();
+  sb.auth.onAuthStateChange((_e, s) => { s ? showApp() : showLogin(); });
+}
+function showLogin() { $('#login').classList.remove('hidden'); $('#app').classList.add('hidden'); }
+let started = false;
+function showApp() {
+  $('#login').classList.add('hidden'); $('#app').classList.remove('hidden');
+  if (!started) { started = true; load(); setInterval(() => { if (!document.hidden && !loading) load(true); }, 60000); }
+}
+async function doLogin() {
+  const email = $('#lEmail').value.trim(), password = $('#lPass').value;
+  $('#lErr').textContent = '';
+  if (!email || !password) { $('#lErr').textContent = 'اكتب الإيميل وكلمة المرور.'; return; }
+  $('#lBtn').disabled = true; $('#lBtn').textContent = 'لحظة...';
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  $('#lBtn').disabled = false; $('#lBtn').textContent = 'دخول';
+  if (error) $('#lErr').textContent = 'الإيميل أو كلمة المرور غلط.';
+}
+$('#lBtn').onclick = doLogin;
+$('#lPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+$('#logout').onclick = async () => { started = false; await sb.auth.signOut(); };
+
+/* ========= التبويبات والفترات ========= */
+let range = 'today', tab = 'overview';
+$('#tabs').onclick = e => {
+  const b = e.target.closest('.tab'); if (!b) return;
+  tab = b.dataset.t;
+  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('on', x === b));
+  ['overview', 'pages', 'clicks', 'audience', 'sessions', 'live'].forEach(t => $('#v-' + t).classList.toggle('hidden', t !== tab));
+  window.scrollTo({ top: 0 });
+};
+$('#ranges').onclick = e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  range = b.dataset.r;
+  document.querySelectorAll('#ranges .chip').forEach(x => x.classList.toggle('on', x === b));
+  load();
+};
+$('#refresh').onclick = () => load();
+
+function bounds() {
+  const t = new Date(); t.setHours(0, 0, 0, 0);
+  let from = t, to = addDays(t, 1);
+  if (range === 'yesterday') { from = addDays(t, -1); to = t; }
+  else if (range === '7') from = addDays(t, -6);
+  else if (range === '30') from = addDays(t, -29);
+  else if (range === '90') from = addDays(t, -89);
+  return { from, to };
+}
+
+/* ========= تحميل البيانات ========= */
+let loading = false, A = null;
+async function load(silent) {
+  loading = true; if (!silent) $('#loadbar').classList.add('on');
+  const { from, to } = bounds();
+  const rows = []; let truncated = false, err = null;
+  for (let i = 0; i < MAX_ROWS; i += 1000) {
+    const { data, error } = await sb.from(TABLE).select('*')
+      .gte('created_at', from.toISOString()).lt('created_at', to.toISOString())
+      .order('created_at', { ascending: true }).range(i, i + 999);
+    if (error) { err = error; break; }
+    rows.push(...data);
+    if (data.length < 1000) break;
+    if (i + 1000 >= MAX_ROWS) truncated = true;
+  }
+  loading = false; $('#loadbar').classList.remove('on');
+  const n = $('#notice');
+  if (err) {
+    n.innerHTML = '<div class="notice">مقدرناش نجيب البيانات: ' + esc(err.message) + '. اتأكد إنك شغلت ملف analytics.sql في سوبابيز.</div>';
+    return;
+  }
+  n.innerHTML = truncated ? '<div class="notice">الفترة دي فيها أحداث كتير؛ عرضنا أول ' + nf(MAX_ROWS) + ' حدث بس. اختار فترة أقصر لأرقام أدق.</div>' : '';
+  A = analyze(rows, from, to);
+  renderAll();
+}
+
+/* ========= التحليل ========= */
+function srcOf(s) {
+  const u = (s.utm || '').toLowerCase();
+  if (u) { if (/insta|^ig/.test(u)) return 'Instagram'; if (/tik/.test(u)) return 'TikTok'; if (/face|^fb/.test(u)) return 'Facebook'; if (/whats|^wa/.test(u)) return 'WhatsApp'; return 'حملة: ' + u; }
+  if (s.ref) {
+    let h = ''; try { h = new URL(s.ref).host.replace(/^www\./, ''); } catch { h = s.ref; }
+    if (/instagram/.test(h)) return 'Instagram'; if (/tiktok/.test(h)) return 'TikTok';
+    if (/facebook|fb\.com|fb\.me/.test(h)) return 'Facebook'; if (/google/.test(h)) return 'Google';
+    if (/bing|duckduckgo|yahoo/.test(h)) return 'محركات بحث تانية'; if (/^t\.co|twitter|^x\.com/.test(h)) return 'X / Twitter';
+    if (/whatsapp|wa\.me/.test(h)) return 'WhatsApp'; if (/youtube|youtu\.be/.test(h)) return 'YouTube'; if (/snapchat/.test(h)) return 'Snapchat';
+    return h;
+  }
+  const b = s.browser || '';
+  if (/Instagram/.test(b)) return 'Instagram'; if (/TikTok/.test(b)) return 'TikTok'; if (/Facebook/.test(b)) return 'Facebook'; if (/Snapchat/.test(b)) return 'Snapchat';
+  return 'مباشر / غير معروف';
+}
+
+function analyze(rows, from, to) {
+  const S = new Map();
+  const pageStat = {}, secStat = {}, clickStat = {};
+  const ps = p => pageStat[p] || (pageStat[p] = { views: 0, vis: new Set(), time: 0, leaves: 0, scroll: 0, exits: 0, entries: 0 });
+
+  rows.forEach(r => {
+    const t = +new Date(r.created_at);
+    let s = S.get(r.session_id);
+    if (!s) {
+      s = S.set(r.session_id, { id: r.session_id, vid: r.visitor_id, start: t, end: t, ev: [], pages: [], entry: null, last: null,
+        clicks: 0, wa: 0, order: 0, form: false, dur: 0, scroll: 0, secs: {}, seen: new Set(), device: r.device, browser: r.browser, os: r.os,
+        country: r.country, lang: r.lang, tz: r.tz, screen: r.screen, ref: r.referrer, utm: r.utm_source, utmc: r.utm_campaign, isNew: !!r.is_new }).get(r.session_id);
+    }
+    s.ev.push(r); s.end = t; s.last = r.page;
+    if (r.is_new) s.isNew = true;
+    const m = r.meta || {};
+    switch (r.type) {
+      case 'pageview': s.pages.push(r.page); if (!s.entry) s.entry = r.page; { const p = ps(r.page); p.views++; p.vis.add(r.visitor_id); } break;
+      case 'click': case 'whatsapp': case 'outbound': {
+        s.clicks++;
+        if (r.type === 'whatsapp') { s.wa++; if (m.order) s.order++; }
+        if (/اصنع هديت|ابعت الطلب|اطلب/.test(r.label || '') || /giftModal/.test(r.section || '')) s.form = true;
+        const k = (r.label || '') + '||' + (r.section || '') + '||' + r.type;
+        const c = clickStat[k] || (clickStat[k] = { label: r.label, section: r.section, type: r.type, href: r.href, n: 0, vis: new Set(), sess: new Set() });
+        c.n++; c.vis.add(r.visitor_id); c.sess.add(r.session_id);
+        break;
+      }
+      case 'scroll': s.scroll = Math.max(s.scroll, r.value || 0); break;
+      case 'section_view': {
+        s.seen.add(r.page + '||' + r.label);
+        const k = r.page + '||' + r.label; const o = secStat[k] || (secStat[k] = { page: r.page, id: r.label, sess: new Set(), ms: 0, dw: 0 });
+        o.sess.add(r.session_id); break;
+      }
+      case 'leave': {
+        s.dur += r.value || 0; s.scroll = Math.max(s.scroll, m.max_scroll || 0);
+        const p = ps(r.page); p.time += r.value || 0; p.leaves++; p.scroll += m.max_scroll || 0;
+        Object.entries(m.sections || {}).forEach(([id, ms]) => {
+          const k = r.page + '||' + id; const o = secStat[k] || (secStat[k] = { page: r.page, id, sess: new Set(), ms: 0, dw: 0 });
+          o.ms += ms; o.dw++; s.secs[id] = (s.secs[id] || 0) + ms;
+        });
+        break;
+      }
+    }
+  });
+
+  const sessions = [...S.values()].sort((a, b) => b.start - a.start);
+  sessions.forEach(s => { if (s.last) ps(s.last).exits++; if (s.entry) ps(s.entry).entries++; });
+
+  const visitors = new Map();
+  sessions.forEach(s => { const v = visitors.get(s.vid) || { isNew: false, n: 0 }; v.n++; if (s.isNew) v.isNew = true; visitors.set(s.vid, v); });
+  const newV = [...visitors.values()].filter(v => v.isNew).length;
+
+  /* السلسلة الزمنية */
+  const hourly = (to - from) <= 864e5 + 3600e3;
+  const buckets = [];
+  if (hourly) for (let h = 0; h < 24; h++) buckets.push({ key: h, label: pad(h) + ':00', v: new Set(), pv: 0, cl: 0 });
+  else for (let d = new Date(from); d < to; d = addDays(d, 1)) buckets.push({ key: dayKey(d), label: (d.getMonth() + 1) + '/' + d.getDate(), v: new Set(), pv: 0, cl: 0 });
+  const bmap = new Map(buckets.map(b => [b.key, b]));
+  rows.forEach(r => {
+    const d = new Date(r.created_at); const b = bmap.get(hourly ? d.getHours() : dayKey(d)); if (!b) return;
+    b.v.add(r.visitor_id); if (r.type === 'pageview') b.pv++; if (r.type === 'click' || r.type === 'whatsapp' || r.type === 'outbound') b.cl++;
+  });
+
+  /* توزيعات (زوار فريدين) */
+  const by = fn => { const m = new Map(); sessions.forEach(s => { const k = fn(s) || 'غير معروف'; if (!m.has(k)) m.set(k, new Set()); m.get(k).add(s.vid); }); return [...m].map(([k, v]) => ({ label: k, value: v.size })).sort((a, b) => b.value - a.value); };
+  const hours = Array.from({ length: 24 }, () => new Set()), wdays = Array.from({ length: 7 }, () => new Set());
+  sessions.forEach(s => { const d = new Date(s.start); hours[d.getHours()].add(s.vid); wdays[d.getDay()].add(s.vid); });
+
+  /* القمع */
+  const fun = [
+    { l: 'دخلوا الموقع', n: sessions.length },
+    { l: 'نزلوا نص الصفحة على الأقل', n: sessions.filter(s => s.scroll >= 50).length },
+    { l: 'شافوا الباقات', n: sessions.filter(s => [...s.seen].some(x => x.endsWith('||packages'))).length },
+    { l: 'فتحوا فورم "اصنع هديتك"', n: sessions.filter(s => s.form).length },
+    { l: 'بعتوا الطلب (فتح واتساب)', n: sessions.filter(s => s.order > 0).length }
+  ];
+
+  const timed = sessions.filter(s => s.dur > 0);
+  return {
+    rows, sessions, visitors, newV, from, to, hourly, buckets, pageStat, secStat, clickStat, fun,
+    pageviews: rows.filter(r => r.type === 'pageview').length,
+    avgDur: timed.length ? timed.reduce((a, s) => a + s.dur, 0) / timed.length : 0,
+    bounce: sessions.filter(s => s.pages.length <= 1 && s.clicks === 0).length,
+    clicks: sessions.reduce((a, s) => a + s.clicks, 0),
+    waSess: sessions.filter(s => s.wa > 0).length,
+    orders: sessions.filter(s => s.order > 0).length,
+    errors: rows.filter(r => r.type === 'error').length,
+    dev: by(s => s.device), browser: by(s => s.browser), os: by(s => s.os), lang: by(s => s.lang && s.lang.split('-')[0]),
+    country: by(s => s.country ? (COUNTRY[s.country] || s.country) : (/Cairo|Africa/.test(s.tz || '') ? 'مصر (من التوقيت)' : null)),
+    src: by(s => srcOf(s)), camp: by(s => s.utmc).filter(x => x.label !== 'غير معروف'), screen: by(s => s.screen).slice(0, 8),
+    hours: hours.map((v, i) => ({ label: pad(i) + ':00', value: v.size })), wdays: wdays.map((v, i) => ({ label: DAYS[i], value: v.size })),
+    scrollDist: [['أقل من 25%', 0, 24], ['25% – 49%', 25, 49], ['50% – 74%', 50, 74], ['75% – 99%', 75, 99], ['وصلوا للآخر', 100, 100]].map(([l, a, b]) => ({ label: l, value: sessions.filter(s => s.scroll >= a && s.scroll <= b).length }))
+  };
+}
+
+/* ========= مكونات العرض ========= */
+const empty = (t, d) => `<div class="card empty"><b>${t}</b>${d || ''}</div>`;
+const kpi = (ico, bg, num, lbl, note) => `<div class="card kpi"><div class="ico" style="background:${bg}">${ico}</div><div class="num">${num}</div><div class="lbl">${lbl}</div><div class="note">${note || '&nbsp;'}</div></div>`;
+function bars(items, o = {}) {
+  if (!items.length) return '<p class="mut">لسه مفيش بيانات.</p>';
+  const tot = o.total ?? items.reduce((a, x) => a + x.value, 0), mx = Math.max(...items.map(x => x.value), 1);
+  return items.slice(0, o.limit || 8).map(x => `<div class="brow"><div class="l" title="${esc(x.label)}">${esc(x.label)}</div><div class="bar"><i style="width:${Math.max(3, x.value / mx * 100)}%;--c:${o.color || 'var(--teal)'}"></i></div><div class="v">${nf(x.value)} <small>${tot ? pc(x.value, tot) : ''}</small></div></div>`).join('');
+}
+function colChart(labels, vals, line) {
+  const W = 720, H = 240, L = 34, B = 28, T = 14, n = vals.length, bw = (W - L - 6) / n;
+  const mx = Math.max(1, ...vals, ...(line || []));
+  const nice = Math.max(1, Math.ceil(mx / 4) * 4), ch = H - B - T;
+  const Y = v => T + ch - v / nice * ch;
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="الزوار عبر الوقت">`;
+  [0, .5, 1].forEach(f => { const y = Y(nice * f); s += `<line x1="${L}" x2="${W}" y1="${y}" y2="${y}" stroke="#e7dbee" stroke-dasharray="4 4"/><text x="${L - 6}" y="${y + 4}" text-anchor="end" font-size="11" fill="#7a6f8c">${Math.round(nice * f)}</text>`; });
+  const step = Math.ceil(n / 8);
+  vals.forEach((v, i) => {
+    const x = L + i * bw + bw * .14, w = bw * .72, y = Y(v);
+    s += `<rect x="${x}" y="${y}" width="${w}" height="${Math.max(0, T + ch - y)}" rx="${n > 31 ? 2 : 5}" fill="#FF8FC7" ${n <= 31 ? 'stroke="#2B2140" stroke-width="2"' : ''}><title>${labels[i]}: ${v} زائر${line ? ' · ' + line[i] + ' مشاهدة' : ''}</title></rect>`;
+    if (i % step === 0) s += `<text x="${x + w / 2}" y="${H - 8}" text-anchor="middle" font-size="11" fill="#7a6f8c">${labels[i]}</text>`;
+  });
+  if (line) {
+    const pts = line.map((v, i) => `${L + i * bw + bw / 2},${Y(v)}`).join(' ');
+    s += `<polyline points="${pts}" fill="none" stroke="#7a52e0" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+    if (n <= 31) line.forEach((v, i) => { s += `<circle cx="${L + i * bw + bw / 2}" cy="${Y(v)}" r="3.5" fill="#B28DFF" stroke="#2B2140" stroke-width="2"/>`; });
+  }
+  return s + '</svg>';
+}
+const table = (heads, rows, cls = []) => `<div class="tw"><table><thead><tr>${heads.map((h, i) => `<th class="${cls[i] || ''}">${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => `<td class="${cls[i] || ''}">${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+
+/* ========= الرسم ========= */
+function renderAll() {
+  const noData = !A.rows.length;
+  const live = new Set(); const nowT = Date.now();
+  A.sessions.forEach(s => { if (nowT - s.end < 5 * 60e3) live.add(s.vid); });
+  $('#liveN').textContent = live.size;
+  const none = empty('لسه مفيش زيارات في الفترة دي', 'لو لسه مركّب الأداة: اتأكد إن tracker.js مضاف في صفحات الموقع، وإن ملف analytics.sql اتشغل في سوبابيز.');
+  rOverview(noData ? none : null); rPages(noData ? none : null); rClicks(noData ? none : null);
+  rAudience(noData ? none : null); rSessions(noData ? none : null); rLive();
+}
+
+function rOverview(none) {
+  if (none) { $('#v-overview').innerHTML = none; return; }
+  const V = A.visitors.size, S = A.sessions.length;
+  const maxF = A.fun[0].n || 1;
+  const fun = A.fun.map((f, i) => {
+    const prev = i ? A.fun[i - 1].n : null;
+    return (i ? `<div class="drop">${prev ? 'كمّل ' + pc(f.n, prev) + ' من اللي قبله · وقع ' + nf(prev - f.n) : '—'}</div>` : '') +
+      `<div class="frow"><div class="frow-top"><span>${f.l}</span><span>${nf(f.n)} زيارة · ${pc(f.n, A.fun[0].n)}</span></div><div class="fbar"><div class="ffill" style="width:${f.n / maxF * 100}%"></div></div></div>`;
+  }).join('');
+  $('#v-overview').innerHTML = `
+  <div class="grid g-kpi">
+    ${kpi('👥', 'var(--pink)', nf(V), 'عدد الزوار', nf(A.newV) + ' جداد · ' + nf(V - A.newV) + ' راجعين')}
+    ${kpi('🔁', 'var(--yellow)', nf(S), 'عدد الزيارات', 'الزيارة = جلسة واحدة')}
+    ${kpi('📄', 'var(--teal)', nf(A.pageviews), 'مشاهدات الصفحات', S ? (A.pageviews / S).toFixed(1) + ' صفحة في الزيارة' : '')}
+    ${kpi('⏱️', 'var(--purple)', dur(A.avgDur), 'متوسط وقت الزيارة', 'الوقت اللي كان فاتح فيه فعلاً')}
+    ${kpi('👆', 'var(--yellow)', nf(A.clicks), 'ضغطات على الأزرار', S ? (A.clicks / S).toFixed(1) + ' ضغطة في الزيارة' : '')}
+    ${kpi('🚪', 'var(--pink)', pc(A.bounce, S), 'خرجوا بسرعة', nf(A.bounce) + ' زيارة من غير تفاعل')}
+    ${kpi('💬', 'var(--teal)', nf(A.waSess), 'فتحوا واتساب', pc(A.waSess, V) + ' من الزوار')}
+    ${kpi('🎁', 'var(--purple)', nf(A.orders), 'طلبات اتبعتت', pc(A.orders, S) + ' من الزيارات')}
+  </div>
+  <div class="grid g-2" style="margin-top:18px">
+    <div class="card chart"><h2>الزوار ${A.hourly ? 'على مدار اليوم' : 'يوم بيوم'}</h2><p class="sub">الأعمدة = زوار · الخط البنفسجي = مشاهدات صفحات</p>
+      ${colChart(A.buckets.map(b => b.label), A.buckets.map(b => b.v.size), A.buckets.map(b => b.pv))}
+      <div class="legend"><span><i style="background:#FF8FC7"></i>زوار</span><span><i style="background:#B28DFF"></i>مشاهدات</span></div></div>
+    <div class="card"><h2>رحلة الزائر لحد الطلب</h2><p class="sub">كام زيارة وصلت لكل خطوة</p>${fun}</div>
+  </div>
+  <div class="grid g-3" style="margin-top:18px">
+    <div class="card"><h2>جايين منين</h2><p class="sub">عدد الزوار لكل مصدر</p>${bars(A.src, { color: 'var(--pink)', total: V })}</div>
+    <div class="card"><h2>أكتر الأزرار ضغطًا</h2><p class="sub">أعلى 6 ضغطات</p>${bars(Object.values(A.clickStat).sort((a, b) => b.n - a.n).map(c => ({ label: c.label, value: c.n })), { color: 'var(--yellow)', limit: 6 })}</div>
+    <div class="card"><h2>نزلوا في الصفحة لحد فين</h2><p class="sub">أبعد نقطة وصلوا لها</p>${bars(A.scrollDist, { color: 'var(--purple)', total: S })}</div>
+  </div>
+  ${A.errors ? `<p class="mut" style="margin-top:14px">⚠️ اتسجلت ${nf(A.errors)} أخطاء جافاسكربت عند الزوار — شوفها في تبويب «الزيارات واحدة واحدة».</p>` : ''}`;
+}
+
+function rPages(none) {
+  if (none) { $('#v-pages').innerHTML = none; return; }
+  const pages = Object.entries(A.pageStat).sort((a, b) => b[1].views - a[1].views);
+  const pt = table(['الصفحة', 'مشاهدات', 'زوار', 'متوسط البقاء', 'متوسط النزول', 'دخلوا منها', 'خرجوا منها', 'نسبة الخروج'],
+    pages.map(([p, o]) => [`<b>${esc(pageName(p))}</b><div class="mut" dir="ltr" style="text-align:right;font-size:12px">${esc(p)}</div>`, nf(o.views), nf(o.vis.size), dur(o.leaves ? o.time / o.leaves : 0), o.leaves ? Math.round(o.scroll / o.leaves) + '%' : '—', nf(o.entries), nf(o.exits), pc(o.exits, o.views)]),
+    ['', 'n', 'n', 'n', 'n', 'n', 'n', 'n']);
+  const ent = Object.entries(A.pageStat).filter(([, o]) => o.entries).sort((a, b) => b[1].entries - a[1].entries).map(([p, o]) => ({ label: pageName(p), value: o.entries }));
+  const ext = Object.entries(A.pageStat).filter(([, o]) => o.exits).sort((a, b) => b[1].exits - a[1].exits).map(([p, o]) => ({ label: pageName(p), value: o.exits }));
+
+  const byPage = {};
+  Object.values(A.secStat).forEach(o => (byPage[o.page] = byPage[o.page] || []).push(o));
+  const secCards = Object.entries(byPage).map(([p, list]) => {
+    const base = A.sessions.filter(s => s.pages.includes(p)).length || 1;
+    list.sort((a, b) => { const ia = SEC_ORDER.indexOf(a.id), ib = SEC_ORDER.indexOf(b.id); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib); });
+    const rows = list.map(o => [`<b>${esc(secName(o.id))}</b>`, nf(o.sess.size),
+      `<div class="bar" style="width:110px;display:inline-block;vertical-align:middle"><i style="width:${Math.min(100, o.sess.size / base * 100)}%;--c:var(--teal)"></i></div> ${pc(o.sess.size, base)}`,
+      dur(o.dw ? o.ms / o.dw / 1000 : 0)]);
+    return `<div class="card" style="margin-top:18px"><h2>أقسام «${esc(pageName(p))}»</h2><p class="sub">الوصول = نسبة الزيارات اللي شافت القسم · البقاء = متوسط الوقت اللي قعدوا فيه</p>${table(['القسم', 'زيارات وصلت', 'نسبة الوصول', 'متوسط البقاء'], rows, ['', 'n', '', 'n'])}</div>`;
+  }).join('');
+
+  $('#v-pages').innerHTML = `
+    <div class="card"><h2>الصفحات</h2><p class="sub">كل صفحة: كام واحد شافها، قعدوا فيها قد إيه، وكام واحد خرج من الموقع وهو فيها</p>${pt}</div>
+    <div class="grid g-2" style="margin-top:18px">
+      <div class="card"><h2>بيدخلوا من أنهي صفحة</h2><p class="sub">أول صفحة في الزيارة</p>${bars(ent, { color: 'var(--teal)' })}</div>
+      <div class="card"><h2>بيخرجوا من أنهي صفحة</h2><p class="sub">آخر صفحة كانوا فيها</p>${bars(ext, { color: 'var(--pink)' })}</div>
+    </div>
+    ${secCards || '<div class="card" style="margin-top:18px"><p class="mut">بيانات الأقسام هتظهر أول ما زوار ينزلوا في الصفحات.</p></div>'}`;
+}
+
+let clickFilter = 'all';
+function rClicks(none) {
+  if (none) { $('#v-clicks').innerHTML = none; return; }
+  const all = Object.values(A.clickStat).sort((a, b) => b.n - a.n);
+  const f = {
+    all: () => true, whatsapp: c => c.type === 'whatsapp', outbound: c => c.type === 'outbound',
+    form: c => /giftModal/.test(c.section || '') || /اصنع هديت/.test(c.label || ''),
+    nav: c => /nav|header|footer|menu/i.test(c.section || '')
+  }[clickFilter];
+  const list = all.filter(f);
+  const chips = [['all', 'الكل'], ['form', 'فورم الطلب'], ['whatsapp', 'واتساب'], ['outbound', 'روابط خارجية'], ['nav', 'القوائم']].map(([k, l]) => `<button class="chip ${clickFilter === k ? 'on' : ''}" data-f="${k}">${l}</button>`).join('');
+  const ty = { click: '<span class="tag g">ضغطة</span>', whatsapp: '<span class="tag t">واتساب</span>', outbound: '<span class="tag p">رابط خارجي</span>' };
+  const S = A.sessions.length;
+  const bySec = {}; all.forEach(c => { const k = secName((c.section || 'غير محدد').replace(/^نافذة: /, 'نافذة ')); bySec[k] = (bySec[k] || 0) + c.n; });
+  $('#v-clicks').innerHTML = `
+    <div class="card"><h2>كل زر اتضغط عليه</h2><p class="sub">${nf(all.length)} عنصر مختلف · ${nf(A.clicks)} ضغطة إجمالي</p>
+      <div class="filters" id="cf">${chips}</div>
+      ${list.length ? table(['الزر / الرابط', 'نوعه', 'مكانه في الصفحة', 'ضغطات', 'زوار', '% من الزيارات'], list.slice(0, 150).map(c => [`<b>${esc(c.label || '—')}</b>${c.href ? `<div class="mut" dir="ltr" style="text-align:right;font-size:12px">${esc(c.href.slice(0, 60))}</div>` : ''}`, ty[c.type] || '', esc(secName((c.section || '—').replace(/^نافذة: /, 'نافذة '))), nf(c.n), nf(c.vis.size), pc(c.sess.size, S)]), ['', '', '', 'n', 'n', 'n']) : '<p class="mut">مفيش ضغطات في التصنيف ده.</p>'}
+    </div>
+    <div class="card" style="margin-top:18px"><h2>الضغطات حسب مكانها</h2><p class="sub">أكتر الأماكن اللي الناس بتتفاعل فيها</p>${bars(Object.entries(bySec).map(([label, value]) => ({ label, value })).sort((a, b) => b.value - a.value), { color: 'var(--yellow)', limit: 12 })}</div>`;
+  $('#cf').onclick = e => { const b = e.target.closest('.chip'); if (b) { clickFilter = b.dataset.f; rClicks(null); } };
+}
+
+function rAudience(none) {
+  if (none) { $('#v-audience').innerHTML = none; return; }
+  const V = A.visitors.size;
+  const maxH = Math.max(1, ...A.hours.map(h => h.value)), maxD = Math.max(1, ...A.wdays.map(h => h.value));
+  const heat = A.hours.map(h => `<div title="${h.label}: ${h.value} زائر" style="flex:1;text-align:center"><div style="height:${8 + h.value / maxH * 70}px;background:var(--pink);border:2px solid var(--ink);border-radius:6px 6px 0 0;margin:0 1px"></div><div style="font-size:10px;color:var(--muted)">${h.label.slice(0, 2)}</div></div>`).join('');
+  $('#v-audience').innerHTML = `
+    <div class="grid g-3">
+      <div class="card"><h2>جداد ولا راجعين</h2><p class="sub">الزائر الراجع = زار الموقع قبل كده</p>${bars([{ label: 'زوار جداد', value: A.newV }, { label: 'زوار راجعين', value: V - A.newV }], { color: 'var(--pink)', total: V })}</div>
+      <div class="card"><h2>الجهاز</h2><p class="sub">موبايل ولا كمبيوتر</p>${bars(A.dev, { color: 'var(--teal)', total: V })}</div>
+      <div class="card"><h2>نظام التشغيل</h2><p class="sub">&nbsp;</p>${bars(A.os, { color: 'var(--purple)', total: V })}</div>
+    </div>
+    <div class="grid g-3" style="margin-top:18px">
+      <div class="card"><h2>المتصفح</h2><p class="sub">وكمان لو فتحوا من جوّه إنستجرام أو تيك توك</p>${bars(A.browser, { color: 'var(--yellow)', total: V })}</div>
+      <div class="card"><h2>الدولة</h2><p class="sub">&nbsp;</p>${bars(A.country, { color: 'var(--pink)', total: V })}</div>
+      <div class="card"><h2>مصدر الزيارة</h2><p class="sub">جايين منين</p>${bars(A.src, { color: 'var(--teal)', total: V, limit: 10 })}</div>
+    </div>
+    <div class="grid g-2" style="margin-top:18px">
+      <div class="card"><h2>أكتر ساعات فيها زوار</h2><p class="sub">حسب ساعة دخول الزائر</p><div style="display:flex;align-items:flex-end;height:100px;direction:ltr">${heat}</div></div>
+      <div class="card"><h2>أكتر أيام فيها زوار</h2><p class="sub">&nbsp;</p>${bars(A.wdays.map(d => ({ ...d })), { color: 'var(--purple)', total: V, limit: 7 })}</div>
+    </div>
+    <div class="grid g-3" style="margin-top:18px">
+      <div class="card"><h2>اللغة</h2><p class="sub">لغة الجهاز</p>${bars(A.lang, { color: 'var(--yellow)', total: V })}</div>
+      <div class="card"><h2>حجم الشاشة</h2><p class="sub">أشهر المقاسات</p>${bars(A.screen, { color: 'var(--teal)', total: V })}</div>
+      <div class="card"><h2>الحملات</h2><p class="sub">لو بتستخدم روابط فيها <span dir="ltr">?utm_campaign=</span></p>${A.camp.length ? bars(A.camp, { color: 'var(--pink)', total: V }) : '<p class="mut">لسه مفيش حملات متسجلة.</p>'}</div>
+    </div>`;
+}
+
+let sessFilter = 'all', sessShown = 40;
+function evText(e, s0) {
+  const m = e.meta || {};
+  const sec = e.section ? ` <span class="mut">(${esc(secName(String(e.section).replace(/^نافذة: /, 'نافذة ')))})</span>` : '';
+  switch (e.type) {
+    case 'pageview': return ['📄', `فتح صفحة <b>${esc(pageName(e.page))}</b>`];
+    case 'click': return ['👆', `ضغط على «<b>${esc(e.label)}</b>»${sec}`];
+    case 'whatsapp': return ['💬', m.order ? '<b>فتح واتساب بعد ما بعت الطلب</b>' : `ضغط على واتساب «${esc(e.label)}»${sec}`];
+    case 'outbound': return ['🔗', `فتح رابط خارجي «${esc(e.label)}»`];
+    case 'scroll': return ['⬇️', `نزل لحد ${e.value}% من ${esc(pageName(e.page))}`];
+    case 'section_view': return ['👀', `وصل لقسم <b>${esc(secName(e.label))}</b>`];
+    case 'leave': return ['🚪', `سابها بعد ${dur(e.value)}${m.max_scroll != null ? ' · نزل ' + m.max_scroll + '%' : ''} <span class="mut">(${esc(pageName(e.page))})</span>`];
+    case 'error': return ['⚠️', `خطأ: ${esc(e.label)}`];
+    default: return ['•', esc(e.type)];
+  }
+}
+function rSessions(none) {
+  if (none) { $('#v-sessions').innerHTML = none; return; }
+  const fl = {
+    all: () => true, clicked: s => s.clicks > 0, form: s => s.form, order: s => s.order > 0,
+    bounce: s => s.pages.length <= 1 && s.clicks === 0, errors: s => s.ev.some(e => e.type === 'error')
+  }[sessFilter];
+  const list = A.sessions.filter(fl);
+  const chips = [['all', 'الكل'], ['clicked', 'ضغطوا على حاجة'], ['form', 'فتحوا الفورم'], ['order', 'بعتوا طلب'], ['bounce', 'خرجوا بسرعة'], ['errors', 'فيها أخطاء']].map(([k, l]) => `<button class="chip ${sessFilter === k ? 'on' : ''}" data-f="${k}">${l}</button>`).join('');
+  const items = list.slice(0, sessShown).map(s => {
+    const path = s.pages.length ? [...new Set(s.pages)].map(pageName).join(' ← ') : '—';
+    const tags = [
+      s.isNew ? '<span class="tag k">جديد</span>' : '<span class="tag g">راجع</span>',
+      s.order ? '<span class="tag t">طلب 🎁</span>' : (s.wa ? '<span class="tag t">واتساب</span>' : ''),
+      s.pages.length <= 1 && s.clicks === 0 ? '<span class="tag g">خرج بسرعة</span>' : '',
+      `<span class="tag">${dur(s.dur)}</span>`
+    ].join('');
+    const tl = s.ev.map(e => { const [ic, tx] = evText(e); const off = Math.max(0, Math.round((+new Date(e.created_at) - s.start) / 1000)); return `<div class="ev"><span class="t">+${pad(Math.floor(off / 60))}:${pad(off % 60)}</span><span>${ic}</span><span>${tx}</span></div>`; }).join('');
+    return `<div class="sess"><div class="sess-h"><div class="sess-time">${hhmm(s.start)}<small>${dateAr(s.start)}</small></div>
+      <div class="sess-main"><div class="path">${esc(path)}</div><div class="meta">${esc([s.device, s.os, s.browser, s.country ? (COUNTRY[s.country] || s.country) : '', srcOf(s)].filter(Boolean).join(' · '))} · ${nf(s.clicks)} ضغطة · نزل ${s.scroll}%</div></div>
+      <div class="sess-tags">${tags}</div></div>
+      <div class="tl"><div class="mut" style="font-size:12.5px;margin-bottom:6px">خرج من: <b>${esc(pageName(s.last))}</b> · دخل من: <b>${esc(pageName(s.entry))}</b> · شاشة ${esc(s.screen || '—')}</div>${tl}</div></div>`;
+  }).join('');
+  $('#v-sessions').innerHTML = `<div class="card"><h2>كل زيارة بالتفصيل</h2><p class="sub">دوس على أي زيارة تشوف كل اللي عمله خطوة بخطوة</p>
+    <div class="filters" id="sf">${chips}</div>
+    ${items || '<p class="mut">مفيش زيارات بالفلتر ده.</p>'}
+    ${list.length > sessShown ? `<button class="btn btn--ghost more" id="moreS">عرض أكتر (${nf(list.length - sessShown)} باقيين)</button>` : ''}</div>`;
+  $('#sf').onclick = e => { const b = e.target.closest('.chip'); if (b) { sessFilter = b.dataset.f; sessShown = 40; rSessions(null); } };
+  const m = $('#moreS'); if (m) m.onclick = () => { sessShown += 60; rSessions(null); };
+  document.querySelectorAll('.sess-h').forEach(h => h.onclick = () => h.parentElement.classList.toggle('open'));
+}
+
+function rLive() {
+  const nowT = Date.now();
+  const on = A.sessions.filter(s => nowT - s.end < 5 * 60e3);
+  const feed = A.rows.filter(r => r.type !== 'scroll' && r.type !== 'section_view').slice(-60).reverse();
+  $('#v-live').innerHTML = `
+    <div class="grid g-2">
+      <div class="card"><h2>على الموقع دلوقتي</h2><p class="sub">آخر 5 دقايق · بيتحدّث كل دقيقة</p>
+        ${on.length ? on.map(s => `<div class="brow" style="grid-template-columns:1fr auto"><div class="l">${esc(pageName(s.last))} <span class="mut">— ${esc([s.device, s.os, srcOf(s)].join(' · '))}</span></div><div class="v">${ago(nowT - s.end)}</div></div>`).join('') : '<p class="mut">مفيش حد دلوقتي.</p>'}</div>
+      <div class="card"><h2>آخر الأحداث</h2><p class="sub">آخر 60 حاجة حصلت</p>
+        ${feed.length ? feed.map(e => { const [ic, tx] = evText(e); return `<div class="ev" style="grid-template-columns:64px 24px 1fr"><span class="t">${hhmm(e.created_at)}</span><span>${ic}</span><span>${tx}</span></div>`; }).join('') : '<p class="mut">لسه مفيش أحداث.</p>'}</div>
+    </div>`;
+}
+
+boot();
+</script>
+</body>
+</html>
